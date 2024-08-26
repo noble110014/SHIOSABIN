@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <HorizontalScrollView
+            android:overScrollMode="never"
             android:id="@+id/horizontalScrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -180,6 +181,7 @@
         </HorizontalScrollView>
 
         <ScrollView
+            android:overScrollMode="never"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
