@@ -1,17 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkblue"
     tools:context=".S_NotificationFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="notification setting"
-        android:textColor="@color/blue"
-        android:textSize="36dp"
-        android:gravity="center"/>
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/notification_text"
+            android:layout_width="match_parent"
+            android:layout_height="113dp"
+            android:gravity="center|bottom"
+            android:text="通知"
+            android:textColor="@color/white"
+            android:textSize="36dp" />
+
+        <TextView
+            android:id="@+id/notifiaction_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notification_text"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/notifiaction_switch_background"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="塩害センサー"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/notifiaction_switch"
+        android:layout_below="@id/notification_text"
+        android:background="@drawable/bg_track_switch"
+        android:thumb="@drawable/ic_thumb"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="40dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:gravity="center"
+        android:checked="true"
+        android:showText="false"
+        android:switchMinWidth="70dp"
+        android:textSize="30dp"/>
+
+    <TextView
+            android:id="@+id/notifiaction_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notifiaction_switch"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="塩害センサーの水が規定値を超えた場合に通知する"
+            android:textColor="@color/blue"
+            android:textSize="20dp" />
+
+</RelativeLayout>
