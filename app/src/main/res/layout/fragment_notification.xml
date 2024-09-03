@@ -36,6 +36,7 @@
             android:textSize="30dp" />
 
     <Switch
+        android:id="@+id/appcompat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@id/notifiaction_switch"
