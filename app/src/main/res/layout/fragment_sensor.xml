@@ -87,5 +87,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
+        <cjh.WaveProgressBarlibrary.WaveProgressBar
+            android:id="@+id/waveProgressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:arc_color="@color/gray"
+            app:cavans_bg="@color/blue"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="@+id/view3"
+            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintStart_toStartOf="@+id/view3"
+            app:layout_constraintTop_toTopOf="@+id/view3"
+            app:layout_constraintVertical_bias="0.55"
+            app:progress="30"
+            app:shape="rectangle"
+            app:text_size="50dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
