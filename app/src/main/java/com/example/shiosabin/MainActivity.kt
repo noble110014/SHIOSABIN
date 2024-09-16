@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fragmentManager = supportFragmentManager
         openFragment(SensorFragment())
+        binding.navigationDrawer.setCheckedItem(R.id.bottom_sensor)
+        binding.bottomNavigation.selectedItemId = R.id.bottom_sensor
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
