@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/bottom_sensor"
-        android:title="センサー"
-        android:icon="@drawable/ic_home_filled_24"/>
-
-    <item
         android:id="@+id/bottom_prediction"
         android:title="予報"
         android:icon="@drawable/ic_online_prediction_24" />
+
+    <item
+        android:id="@+id/bottom_sensor"
+        android:title="センサー"
+        android:icon="@drawable/ic_home_filled_24"/>
 
     <item
         android:id="@+id/bottom_map"
