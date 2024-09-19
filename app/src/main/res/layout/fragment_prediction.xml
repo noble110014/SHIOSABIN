@@ -13,7 +13,7 @@
         android:fitsSystemWindows="true">
 
         <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
+            android:id="@+id/p_hour_scrollview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -23,7 +23,7 @@
             android:background="@drawable/normal_frame_style"
             android:overScrollMode="never"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+            app:layout_constraintBottom_toTopOf="@+id/p_day_scrollview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,24 +41,24 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/p_hour_time_0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="8:00"
+                        android:text="@string/p_current_time"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/imageview100"
+                        android:id="@+id/p_hour_icon_0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:src="@drawable/side_navigation_background_smaller" />
 
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/p_hour_salt_level_0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -76,24 +76,24 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/p_hour_time_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="8:00"
+                        android:text="@string/p_current_time"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/imageview10"
+                        android:id="@+id/p_hour_icon_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:src="@drawable/side_navigation_background_smaller" />
 
                     <TextView
-                        android:id="@+id/textView23"
+                        android:id="@+id/p_hour_salt_level_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -111,7 +111,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/p_hour_time_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="8:00"
@@ -121,14 +121,84 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/imageview101"
+                        android:id="@+id/p_hour_icon_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:src="@drawable/side_navigation_background_smaller" />
 
                     <TextView
-                        android:id="@+id/textView14"
+                        android:id="@+id/p_hour_salt_level_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="5"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="34sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/p_hour_time_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="8:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/p_hour_icon_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/side_navigation_background_smaller" />
+
+                    <TextView
+                        android:id="@+id/p_hour_salt_level_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="5"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="34sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/p_hour_time_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="8:00"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/p_hour_icon_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/side_navigation_background_smaller" />
+
+                    <TextView
+                        android:id="@+id/p_hour_salt_level_4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -145,7 +215,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/p_hour_time_5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="8:00"
@@ -155,14 +225,14 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:id="@+id/imageview103"
+                        android:id="@+id/p_hour_icon_5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:src="@drawable/side_navigation_background_smaller" />
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/p_hour_salt_level_5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -177,7 +247,7 @@
         </HorizontalScrollView>
 
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/p_day_scrollview"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_marginStart="10dp"
@@ -189,7 +259,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+            app:layout_constraintTop_toBottomOf="@+id/p_hour_scrollview"
             app:layout_constraintVertical_bias="1.0">
 
             <LinearLayout
@@ -205,7 +275,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/p_day_0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -215,14 +285,14 @@
                         android:textSize="20sp" />
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/p_day_icon_0"
                         android:layout_width="30dp"
                         android:layout_height="38dp"
                         android:layout_weight="1"
                         android:src="@drawable/side_navigation_background" />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/p_day_min_salt_level_0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -232,7 +302,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/p_day_max_salt_level_0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -249,7 +319,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView60"
+                        android:id="@+id/p_day_1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -259,14 +329,14 @@
                         android:textSize="20sp" />
 
                     <ImageView
-                        android:id="@+id/imageView23"
+                        android:id="@+id/p_day_icon_1"
                         android:layout_width="30dp"
                         android:layout_height="38dp"
                         android:layout_weight="1"
                         android:src="@drawable/side_navigation_background" />
 
                     <TextView
-                        android:id="@+id/textView80"
+                        android:id="@+id/p_day_min_salt_level_1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -276,7 +346,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/textView92"
+                        android:id="@+id/p_day_max_salt_level_1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -293,7 +363,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView64"
+                        android:id="@+id/p_day_2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -303,14 +373,14 @@
                         android:textSize="20sp" />
 
                     <ImageView
-                        android:id="@+id/imageView22"
+                        android:id="@+id/p_day_icon_2"
                         android:layout_width="30dp"
                         android:layout_height="38dp"
                         android:layout_weight="1"
                         android:src="@drawable/side_navigation_background" />
 
                     <TextView
-                        android:id="@+id/textView86"
+                        android:id="@+id/p_day_min_salt_level_2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -320,7 +390,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/textView909"
+                        android:id="@+id/p_day_max_salt_level_2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -337,7 +407,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView69"
+                        android:id="@+id/p_day_3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -347,14 +417,14 @@
                         android:textSize="20sp" />
 
                     <ImageView
-                        android:id="@+id/imageView232"
+                        android:id="@+id/p_day_icon_3"
                         android:layout_width="30dp"
                         android:layout_height="38dp"
                         android:layout_weight="1"
                         android:src="@drawable/side_navigation_background" />
 
                     <TextView
-                        android:id="@+id/textView800"
+                        android:id="@+id/p_day_min_salt_level_3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -364,7 +434,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/textView91"
+                        android:id="@+id/p_day_max_salt_level_3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -381,7 +451,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView666"
+                        android:id="@+id/p_day_4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -391,14 +461,14 @@
                         android:textSize="20sp" />
 
                     <ImageView
-                        android:id="@+id/imageView213"
+                        android:id="@+id/p_day_icon_4"
                         android:layout_width="30dp"
                         android:layout_height="38dp"
                         android:layout_weight="1"
                         android:src="@drawable/side_navigation_background" />
 
                     <TextView
-                        android:id="@+id/textView88"
+                        android:id="@+id/p_day_min_salt_level_4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -408,7 +478,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/textView99"
+                        android:id="@+id/p_day_max_salt_level_4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -424,7 +494,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView631"
+                        android:id="@+id/p_day_5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -434,14 +504,14 @@
                         android:textSize="20sp" />
 
                     <ImageView
-                        android:id="@+id/imageView210"
+                        android:id="@+id/p_day_icon_5"
                         android:layout_width="30dp"
                         android:layout_height="38dp"
                         android:layout_weight="1"
                         android:src="@drawable/side_navigation_background" />
 
                     <TextView
-                        android:id="@+id/textView842"
+                        android:id="@+id/p_day_min_salt_level_5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -451,7 +521,7 @@
                         android:textSize="26sp" />
 
                     <TextView
-                        android:id="@+id/textView931"
+                        android:id="@+id/p_day_max_salt_level_5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -464,30 +534,30 @@
         </ScrollView>
 
         <TextView
-            android:id="@+id/textView77"
+            android:id="@+id/current_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:text="恩納村"
-            android:textColor="@color/darkblue"
+            android:textColor="@color/blue"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.32" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/today_average_salt_level"
             android:layout_width="92dp"
             android:layout_height="122dp"
             android:layout_marginBottom="50dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal|center_vertical"
             android:text="4"
-            android:textColor="@color/darkblue"
+            android:textColor="@color/blue"
             android:textSize="100sp"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -500,13 +570,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="100dp"
             android:fontFamily="sans-serif-black"
-            android:text="最高：５"
-            android:textColor="@color/darkblue"
+            android:text="@string/p_max"
+            android:textColor="@color/blue"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
 
         <TextView
             android:id="@+id/textView12"
@@ -514,13 +584,39 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:fontFamily="sans-serif-black"
-            android:text="最低：３"
-            android:textColor="@color/darkblue"
+            android:text="@string/p_min"
+            android:textColor="@color/blue"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
+
+        <TextView
+            android:id="@+id/today_max_salt_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="5"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
+
+        <TextView
+            android:id="@+id/today_min_salt_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="3"
+            android:textColor="@color/darkblue"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
+            app:layout_constraintStart_toEndOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
