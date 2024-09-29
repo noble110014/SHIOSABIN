@@ -5,6 +5,10 @@
     <color name="blue">#5EA3C0</color>
     <color name="darkblue">#315B6C</color>
     <color name="gray">#9F9EA3</color>
-    <color name="red">#FFFF6868</color>
+    <color name="red">#FF2800</color>
+    <color name="skyblue">#B9EBEB</color>
+    <color name="yellow">#FAF500</color>
+    <color name="orange">#FF9900</color>
+    <color name="darkred">#B40068</color>
 </resources>
 

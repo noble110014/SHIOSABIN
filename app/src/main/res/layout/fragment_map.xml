@@ -11,6 +11,14 @@
         android:layout_height="match_parent">
 
 
+        <fragment
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton2"
             android:layout_width="wrap_content"
@@ -47,7 +55,7 @@
             android:layout_marginStart="70dp"
             android:layout_marginEnd="70dp"
             android:layout_marginBottom="97dp"
-            android:stepSize="0.1"
+            android:stepSize="0.25"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

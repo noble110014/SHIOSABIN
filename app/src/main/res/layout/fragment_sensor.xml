@@ -12,10 +12,10 @@
 
         <View
             android:id="@+id/view"
-            android:layout_width="380dp"
+            android:layout_width="0dp"
             android:layout_height="267dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="95dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/level_frame_style"
             app:circularflow_radiusInDP="0"
@@ -30,7 +30,7 @@
             android:id="@+id/textView22"
             android:layout_width="173dp"
             android:layout_height="53dp"
-            android:text="塩害レベル "
+            android:text="@string/s_salt_level"
             android:textColor="#FFFFFF"
             android:textSize="34sp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
@@ -41,7 +41,7 @@
             app:layout_constraintVertical_bias="0.096" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/s_salt_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4"
@@ -57,12 +57,17 @@
             app:layout_constraintVertical_bias="0.005" />
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="301dp"
+            android:id="@+id/s_salt_level_description"
+            android:layout_width="0dp"
             android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:autoSizeMaxTextSize="24dp"
+            android:autoSizeMinTextSize="6dp"
+            android:autoSizeTextType="uniform"
             android:background="#FFFFFF"
-            android:text="洗浄を開始してください"
-            android:textAlignment="center"
+            android:gravity="center"
+            android:text="@string/s_salt_level4_description"
             android:textColor="#464952"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -75,7 +80,7 @@
 
         <View
             android:id="@+id/view3"
-            android:layout_width="380dp"
+            android:layout_width="0dp"
             android:layout_height="350dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
@@ -90,7 +95,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <cjh.WaveProgressBarlibrary.WaveProgressBar
-            android:id="@+id/waveProgressbar"
+            android:id="@+id/s_in_tank"
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_marginStart="20dp"
@@ -125,7 +130,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <cjh.WaveProgressBarlibrary.WaveProgressBar
-            android:id="@+id/waveProgressbar2"
+            android:id="@+id/s_out_tank"
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_marginStart="20dp"
@@ -169,7 +174,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="80dp"
             android:fontFamily="sans-serif-black"
-            android:text="入水タンク"
+            android:text="@string/s_in_water_tank"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -189,7 +194,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="80dp"
             android:fontFamily="sans-serif-black"
-            android:text="排水タンク"
+            android:text="@string/s_out_water_tank"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -204,7 +209,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
             android:fontFamily="sans-serif-black"
-            android:text="補充まであと"
+            android:text="@string/s_replace_time_description"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/view3"
@@ -213,7 +218,7 @@
             app:layout_constraintTop_toTopOf="@+id/view3" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/s_replace_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -231,14 +236,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif-black"
-            android:text="廃棄まであと"
+            android:text="@string/s_dispose_time_description"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/textView21"
+            app:layout_constraintBottom_toTopOf="@+id/s_dispose_time"
             app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintStart_toEndOf="@+id/imageView4" />
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/s_dispose_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
