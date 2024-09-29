@@ -1,6 +1,7 @@
 package com.example.shiosabin
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,12 +11,19 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.shiosabin.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: ActivityMainBinding
-    private val urlGetText = "http://192.168.0.10:5000/api/get"
+    private val urlGetText = "http://10.0.2.2:5556/api/hello?name=a"  // エミュレータの場合*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +54,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.navigationDrawer.setCheckedItem(R.id.bottom_sensor)
         binding.bottomNavigation.selectedItemId = R.id.bottom_sensor
 
-        // Use the ApiHandler to fetch data
-        val apiHandler = ApiHandler(urlGetText)
-        apiHandler.fetchApiData(object : ApiHandler.ApiCallback {
-            override fun onSuccess(result: String) {
-                PredictionFragment().SetTodaySaltLevel(result)
-            }
-
-            override fun onError(e: Exception) {
-                e.printStackTrace()
-                // Handle the error appropriately, e.g., show a toast or log it
-            }
-        })
+        // 非同期でAPI通信を開始
+        CoroutineScope(Dispatchers.IO).launch {
+            fetchData()
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -87,4 +87,65 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             fragmentTransaction.commit()
         }
     }
+
+    // suspend 関数にして非同期通信を行う
+   private suspend fun fetchData() {
+        val result = fetchFromApi(urlGetText)
+
+        // メインスレッドでUIを更新
+        withContext(Dispatchers.Main) {
+            Log.d("MainActivity", result)
+        }
+    }
+
+    // API通信を行う関数
+    private suspend fun fetchFromApi(urlString: String): String {
+        return withContext(Dispatchers.IO) {
+            try {
+                Log.d("MainActivity", "Sending request to: $urlString")
+                // URL 設定
+                val url = URL(urlString)
+                val con = url.openConnection() as HttpURLConnection
+
+                // 接続設定
+                con.connectTimeout = 30_000 // 30 秒
+                con.readTimeout = 30_000    // 30 秒
+                con.requestMethod = "GET"   // GETの場合は省略可
+
+                // 接続を確立
+                con.connect()
+
+                val str = con.inputStream.bufferedReader(Charsets.UTF_8).use { br ->
+                    br.readLines().joinToString("")
+                }
+
+                // JSON変換
+                val json = JSONObject(str)
+
+                // "message" フィールドが JSONArray かどうか確認して取得
+                if (json.has("message") && !json.isNull("message")) {
+                    val messageArray = json.getJSONArray("message")
+                    Log.d("MainActivity", "Message Array: $messageArray")
+
+                    // 配列の内容をログに出力する（デバッグ用）
+                    for (i in 0 until messageArray.length()) {
+                        Log.d("MainActivity", "Item $i: ${messageArray.get(i)}")
+                    }
+
+                    messageArray.toString() // 配列全体を文字列として返す
+                } else {
+                    /*Log.e("MainActivity", "No message field or message is null")
+                    "No message field or message is null"*/
+                    Log.d("MainActivity",json.toString())
+                    json.toString()
+                }
+            } catch (e: Exception) {
+                // エラーログの詳細を出力
+                Log.e("MainActivity", "Exception: ${e.message}")
+                e.printStackTrace()
+                "Error fetching data"
+            }
+        }
+    }
+
 }
