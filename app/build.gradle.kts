@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -8,6 +10,9 @@ android {
     namespace = "com.example.shiosabin"
     compileSdk = 34
 
+    buildFeatures{
+        buildConfig = true
+    }
     defaultConfig {
         applicationId = "com.example.shiosabin"
         minSdk = 24
@@ -16,6 +21,19 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val localProperties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { stream ->
+                localProperties.load(stream)
+            }
+        }
+
+        // 環境変数を BuildConfig に設定する
+        buildConfigField("String", "NETWORK_ADDRESS", "\"${localProperties["NETWORK_ADDRESS"]}\"")
+        buildConfigField("String", "MAPS_API_KEY", "\"${localProperties["MAPS_API_KEY"]}\"")
+
     }
 
     buildTypes {
