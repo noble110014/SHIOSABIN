@@ -59,10 +59,8 @@
         android:id="@+id/navigation_drawer"
         android:layout_gravity="start"
         android:background="@color/blue"
-
-
         app:itemTextColor="@color/white"
-        app:headerLayout="@layout/nav_header"
-        app:menu = "@menu/nav_menu"/>
+        app:headerLayout="@layout/login_nav_header"
+        app:menu = "@menu/non_logged_nav_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

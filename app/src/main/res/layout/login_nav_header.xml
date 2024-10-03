@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="167dp"
     android:background="@color/darkblue"
-    android:gravity="bottom"
+    android:gravity="center_vertical"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:paddingTop="8dp"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        app:shapeAppearanceOverlay="@style/circleImageView"/>
+        app:shapeAppearanceOverlay="@style/circleImageView"
+        app:srcCompat="@drawable/baseline_account_circle_24" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:paddingTop="8dp"
-        android:text="mi211341"
+        android:text="SensorID"
         android:textSize="16sp" />
 
     <TextView
@@ -31,8 +32,5 @@
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:text="mi211341@edu.okinawa-ct.ac.jp" />
-
-
-
 
 </LinearLayout>
