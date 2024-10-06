@@ -91,9 +91,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 loginDialog.show(supportFragmentManager, "LoginDialogFragment")
             }
             R.id.nav_logout -> {
-                val editor = sharedPreferences.edit()
-                editor.putBoolean("isLoggedIn", false)
-                editor.apply()
 
                 // NavigationViewのヘッダーを更新
                 setNavigationView(false)

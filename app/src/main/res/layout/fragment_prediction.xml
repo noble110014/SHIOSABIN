@@ -38,7 +38,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/prediction_frame_style">
 
                     <TextView
                         android:id="@+id/p_hour_time_0"
@@ -52,10 +53,11 @@
 
                     <ImageView
                         android:id="@+id/p_hour_icon_0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
+                        android:layout_margin="10dp"
+                        android:src="@drawable/level1_icon"/>
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_0"
@@ -73,7 +75,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/prediction_frame_style">
 
                     <TextView
                         android:id="@+id/p_hour_time_1"
@@ -87,10 +90,11 @@
 
                     <ImageView
                         android:id="@+id/p_hour_icon_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
+                        android:layout_margin="10dp"
+                        android:src="@drawable/level2_icon" />
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_1"
@@ -108,7 +112,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/prediction_frame_style">
 
                     <TextView
                         android:id="@+id/p_hour_time_2"
@@ -122,10 +127,11 @@
 
                     <ImageView
                         android:id="@+id/p_hour_icon_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
+                        android:layout_margin="10dp"
+                        android:src="@drawable/level3_icon" />
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_2"
@@ -143,7 +149,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/prediction_frame_style">
 
                     <TextView
                         android:id="@+id/p_hour_time_3"
@@ -157,10 +164,11 @@
 
                     <ImageView
                         android:id="@+id/p_hour_icon_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="10dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
+                        android:src="@drawable/level4_icon" />
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_3"
@@ -178,7 +186,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/prediction_frame_style">
 
                     <TextView
                         android:id="@+id/p_hour_time_4"
@@ -192,10 +201,11 @@
 
                     <ImageView
                         android:id="@+id/p_hour_icon_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
+                        android:layout_margin="10dp"
+                        android:src="@drawable/level1_icon"/>
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_4"
@@ -212,7 +222,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/prediction_frame_style">
 
                     <TextView
                         android:id="@+id/p_hour_time_5"
@@ -226,10 +237,12 @@
 
                     <ImageView
                         android:id="@+id/p_hour_icon_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
+                        android:layout_margin="10dp"
+                        android:src="@drawable/level3_icon"
+                        android:backgroundTint="@color/white"/>
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_5"

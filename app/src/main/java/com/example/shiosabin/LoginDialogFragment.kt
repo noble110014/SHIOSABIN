@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
@@ -116,8 +117,10 @@ class LoginDialogFragment : DialogFragment() {
         // ログイン状態を確認して、ログイン用と登録用のURLを切り替える
         if (sharedPreferences.getBoolean("isLoggedIn", false)) {
             urlString = LOGIN_NETWORK_ADDRESS
+            Log.d("LoginDialogFragment","register");
         } else {
             urlString = REGISTER_NETWORK_ADDRESS
+            Log.d("LoginDialogFragment","login");
         }
 
         return withContext(Dispatchers.IO) {

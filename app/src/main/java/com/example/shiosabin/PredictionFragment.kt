@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import java.util.Calendar
 import java.util.Locale
@@ -41,6 +42,19 @@ class PredictionFragment : Fragment() {
             view.findViewById<TextView>(R.id.p_day_3),
             view.findViewById<TextView>(R.id.p_day_4),
             view.findViewById<TextView>(R.id.p_day_5)
+        )
+
+        val hourIconArray = arrayOf(
+            view.findViewById<ImageView>(R.id.p_hour_icon_0),
+            view.findViewById<ImageView>(R.id.p_hour_icon_1),
+            view.findViewById<ImageView>(R.id.p_hour_icon_2),
+            view.findViewById<ImageView>(R.id.p_hour_icon_3),
+            view.findViewById<ImageView>(R.id.p_hour_icon_4),
+            view.findViewById<ImageView>(R.id.p_hour_icon_5),
+        )
+
+        val dayIconArray = arrayOf(
+            view.findViewById<ImageView>(R.id.p_day_max_salt_level_0),
         )
 
         // 最初のTextViewのテキストを空に設定
