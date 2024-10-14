@@ -12,7 +12,7 @@
         android:id="@+id/sensorIDEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="センサーID" />
+        android:hint="ユーザー名" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -22,10 +22,21 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="登録"
         android:backgroundTint="@color/blue"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ログイン"
+        android:backgroundTint="@color/blue"/>
+
+
+
+
 
 </LinearLayout>

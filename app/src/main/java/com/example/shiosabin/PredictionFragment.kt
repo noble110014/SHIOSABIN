@@ -47,9 +47,9 @@ class PredictionFragment : Fragment() {
         val ct = getString(R.string.p_current_time)
         hourTextArray[0].text = ct
 
-        for (i in 1..5) {
+        for (i in 0..5) {
             val hour = (calendar.get(Calendar.HOUR_OF_DAY) + i) % 24
-            hourTextArray[i].text = String.format("%02d:00", hour)
+            hourTextArray[i].text = String.format("%02d時", hour)
         }
 
         for (i in 0..5) {

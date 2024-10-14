@@ -12,11 +12,14 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.shiosabin.BuildConfig.NETWORK_ADDRESS
+import com.example.shiosabin.BuildConfig.DATA_FETCH_NETWORK_ADDRESS
 import com.example.shiosabin.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: ActivityMainBinding
-    private val urlGetText = NETWORK_ADDRESS // エミュレータの場合
+    private val urlGetText = DATA_FETCH_NETWORK_ADDRESS // エミュレータの場合
     private lateinit var navigationView: NavigationView
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -76,9 +79,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 onLoginSuccess() // ログイン成功時の処理
             }
         }
-        /*CoroutineScope(Dispatchers.IO).launch {
-            fetchData()
-        }*/
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -98,6 +98,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // NavigationViewのヘッダーを更新
                 setNavigationView(false)
                 Toast.makeText(this, "ログアウトしました", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_sensor_register ->{
+                val sensorDialog = SensorIDDialogFragment()
+                sensorDialog.show(supportFragmentManager,"SensorIDDialogFragment")
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -122,36 +126,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private suspend fun fetchData() {
-        val result = fetchFromApi(urlGetText)
-        Log.d("MainActivity", result)
-    }
-
-    private suspend fun fetchFromApi(urlString: String): String {
-        return try {
-            withContext(Dispatchers.IO) {
-                val url = URL(urlString)
-                val con = url.openConnection() as HttpURLConnection
-                con.connectTimeout = 30_000
-                con.readTimeout = 30_000
-                con.requestMethod = "GET"
-                con.connect()
-
-                val str = con.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-                val json = JSONObject(str)
-                json.optJSONArray("message")?.let { messageArray ->
-                    StringBuilder().apply {
-                        for (i in 0 until messageArray.length()) {
-                            appendLine("Item $i: ${messageArray.get(i)}")
-                        }
-                    }.toString()
-                } ?: json.toString()
-            }
-        } catch (e: Exception) {
-            Log.e("MainActivity", "Exception: ${e.message}", e)
-            "Error fetching data"
-        }
-    }
 
     private fun setNavigationView(isLoggedIn: Boolean) {
         // 既存のヘッダーを削除

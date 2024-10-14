@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:paddingTop="8dp"
-        android:text="SensorID"
+        android:text="SENSOR ID : "
         android:textSize="16sp" />
 
     <TextView
@@ -31,6 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
-        android:text="mi211341@edu.okinawa-ct.ac.jp" />
+        android:text="LOCATION:()" />
 
 </LinearLayout>

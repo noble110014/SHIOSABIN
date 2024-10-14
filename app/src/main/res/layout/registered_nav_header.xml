@@ -18,19 +18,20 @@
         app:shapeAppearanceOverlay="@style/circleImageView"/>
 
     <TextView
+        android:id="@+id/sensorID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:paddingTop="8dp"
-        android:text="mi211341"
+        android:text="SENSOR ID: 192168540"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
-        android:text="mi211341@edu.okinawa-ct.ac.jp" />
+        android:text="LOCATION:(25.0,125.5)" />
 
 
 </LinearLayout>
