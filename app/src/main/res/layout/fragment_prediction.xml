@@ -12,15 +12,25 @@
         android:background="@color/white"
         android:fitsSystemWindows="true">
 
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            android:src="@drawable/level4_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <HorizontalScrollView
             android:id="@+id/p_hour_scrollview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/normal_frame_style"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="350dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/prediction_frame"
             android:overScrollMode="never"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@+id/p_day_scrollview"
@@ -37,32 +47,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="15dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/p_hour_time_0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/p_current_time"
+                        android:text="8:00"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/p_hour_icon_0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
-
                     <TextView
                         android:id="@+id/p_hour_salt_level_0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="5"
+                        android:text="2"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="34sp" />
@@ -72,32 +76,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="15dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/p_hour_time_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/p_current_time"
+                        android:text="8:00"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/p_hour_icon_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
-
                     <TextView
                         android:id="@+id/p_hour_salt_level_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="5"
+                        android:text="1"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="34sp" />
@@ -107,7 +105,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="15dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -120,19 +118,14 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/p_hour_icon_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="5"
+                        android:text="3"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="34sp" />
@@ -142,7 +135,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="15dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -155,19 +148,14 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/p_hour_icon_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="5"
+                        android:text="4"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="34sp" />
@@ -177,7 +165,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="15dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -190,17 +178,12 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/p_hour_icon_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
 
                     <TextView
                         android:id="@+id/p_hour_salt_level_4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="5"
                         android:textAlignment="center"
@@ -212,6 +195,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="15dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -224,17 +208,11 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/p_hour_icon_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/side_navigation_background_smaller" />
-
                     <TextView
                         android:id="@+id/p_hour_salt_level_5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
                         android:fontFamily="sans-serif-medium"
                         android:text="5"
                         android:textAlignment="center"
@@ -249,11 +227,12 @@
         <ScrollView
             android:id="@+id/p_day_scrollview"
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="80dp"
-            android:background="@drawable/normal_frame_style"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="120dp"
+            android:background="@drawable/prediction_frame"
             android:overScrollMode="never"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -280,25 +259,18 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="8(金)"
-                        android:textAlignment="viewStart"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/p_day_icon_0"
-                        android:layout_width="30dp"
-                        android:layout_height="38dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/side_navigation_background" />
 
                     <TextView
                         android:id="@+id/p_day_min_salt_level_0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="2"
+                        android:text="3"
                         android:textAlignment="center"
-                        android:textColor="@color/darkblue"
+                        android:textColor="@color/white"
                         android:textSize="26sp" />
 
                     <TextView
@@ -306,9 +278,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="3"
+                        android:text="2"
                         android:textAlignment="center"
-                        android:textColor="@color/red"
+                        android:textColor="@color/white"
                         android:textSize="26sp" />
                 </LinearLayout>
 
@@ -324,25 +296,19 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="8(金)"
-                        android:textAlignment="viewStart"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
-                    <ImageView
-                        android:id="@+id/p_day_icon_1"
-                        android:layout_width="30dp"
-                        android:layout_height="38dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/side_navigation_background" />
 
                     <TextView
                         android:id="@+id/p_day_min_salt_level_1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="2"
+                        android:text="3"
                         android:textAlignment="center"
-                        android:textColor="@color/darkblue"
+                        android:textColor="@color/white"
                         android:textSize="26sp" />
 
                     <TextView
@@ -350,9 +316,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="3"
+                        android:text="2"
                         android:textAlignment="center"
-                        android:textColor="@color/red"
+                        android:textColor="@color/white"
                         android:textSize="26sp" />
                 </LinearLayout>
 
@@ -368,25 +334,18 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="8(金)"
-                        android:textAlignment="viewStart"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/p_day_icon_2"
-                        android:layout_width="30dp"
-                        android:layout_height="38dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/side_navigation_background" />
 
                     <TextView
                         android:id="@+id/p_day_min_salt_level_2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="2"
+                        android:text="3"
                         android:textAlignment="center"
-                        android:textColor="@color/darkblue"
+                        android:textColor="@color/white"
                         android:textSize="26sp" />
 
                     <TextView
@@ -394,9 +353,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="3"
+                        android:text="2"
                         android:textAlignment="center"
-                        android:textColor="@color/red"
+                        android:textColor="@color/white"
                         android:textSize="26sp" />
                 </LinearLayout>
 
@@ -412,25 +371,18 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="8(金)"
-                        android:textAlignment="viewStart"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/p_day_icon_3"
-                        android:layout_width="30dp"
-                        android:layout_height="38dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/side_navigation_background" />
 
                     <TextView
                         android:id="@+id/p_day_min_salt_level_3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="2"
+                        android:text="3"
                         android:textAlignment="center"
-                        android:textColor="@color/darkblue"
+                        android:textColor="@color/white"
                         android:textSize="26sp" />
 
                     <TextView
@@ -438,9 +390,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="3"
+                        android:text="2"
                         android:textAlignment="center"
-                        android:textColor="@color/red"
+                        android:textColor="@color/white"
                         android:textSize="26sp" />
                 </LinearLayout>
 
@@ -456,23 +408,17 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="8(金)"
-                        android:textAlignment="viewStart"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
-                    <ImageView
-                        android:id="@+id/p_day_icon_4"
-                        android:layout_width="30dp"
-                        android:layout_height="38dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/side_navigation_background" />
 
                     <TextView
                         android:id="@+id/p_day_min_salt_level_4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="2"
+                        android:text="3"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="26sp" />
@@ -482,7 +428,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="3"
+                        android:text="2"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="26sp" />
@@ -499,23 +445,17 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="8(金)"
-                        android:textAlignment="viewStart"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
-                    <ImageView
-                        android:id="@+id/p_day_icon_5"
-                        android:layout_width="30dp"
-                        android:layout_height="38dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/side_navigation_background" />
 
                     <TextView
                         android:id="@+id/p_day_min_salt_level_5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="2"
+                        android:text="3"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="26sp" />
@@ -525,7 +465,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="3"
+                        android:text="2"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="26sp" />
@@ -537,32 +477,35 @@
             android:id="@+id/current_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:fontFamily="sans-serif-black"
             android:text="恩納村"
-            android:textColor="@color/blue"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
+            android:textColor="@color/darkblue"
+
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.32" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/today_average_salt_level"
             android:layout_width="92dp"
             android:layout_height="122dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="50dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center_horizontal|center_vertical"
             android:text="4"
-            android:textColor="@color/blue"
+            android:textColor="@color/darkblue"
             android:textSize="100sp"
+            android:typeface="serif"
             app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/current_location"
+            app:layout_constraintVertical_bias="0.37" />
 
         <TextView
             android:id="@+id/textView11"
@@ -570,9 +513,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="100dp"
             android:fontFamily="sans-serif-black"
-            android:text="@string/p_max"
-            android:textColor="@color/blue"
-            android:textSize="16sp"
+            android:text="最高：5"
+            android:textColor="@color/darkblue"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -584,39 +527,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:fontFamily="sans-serif-black"
-            android:text="@string/p_min"
-            android:textColor="@color/blue"
-            android:textSize="16sp"
+            android:text="最低：3"
+            android:textColor="@color/darkblue"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
 
-        <TextView
-            android:id="@+id/today_max_salt_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="5"
-            android:textColor="@color/red"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
-            app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
-
-        <TextView
-            android:id="@+id/today_min_salt_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="3"
-            android:textColor="@color/darkblue"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
-            app:layout_constraintStart_toEndOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

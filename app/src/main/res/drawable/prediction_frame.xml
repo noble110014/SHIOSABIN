@@ -6,11 +6,11 @@
                 android:radius="10dp"
                 />
             <solid
-                android:color="@color/s_level4_color"
+                android:color="@color/darkblue"
                 />
             <stroke
                 android:width="3dp"
-                android:color="@color/darkblue"
+                android:color="@color/blue"
                 />
         </shape>
     </item>

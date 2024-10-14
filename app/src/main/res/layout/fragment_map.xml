@@ -12,12 +12,35 @@
 
 
         <fragment
-            class="com.google.android.gms.maps.SupportMapFragment"
             android:id="@+id/map_fragment"
+            class="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            tools:layout_editor_absoluteX="-174dp"
+            tools:layout_editor_absoluteY="-41dp" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/map_fragment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="70dp"
+            android:layout_height="225dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="300dp"
+            android:src="@drawable/salt_level_graph"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.305"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/map_fragment" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton2"
