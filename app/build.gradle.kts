@@ -67,7 +67,6 @@ dependencies {
     implementation(libs.material.v1130alpha05)
     implementation(libs.okhttp3.okhttp)
     implementation(libs.play.services.maps)
-    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

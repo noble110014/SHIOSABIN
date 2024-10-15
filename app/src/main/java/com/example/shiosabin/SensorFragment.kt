@@ -27,6 +27,7 @@ class SensorFragment : Fragment() {
     private var currentInProgress: Int = 0  // 現在の内部タンクの進捗
     private lateinit var currentSalinityText:TextView
     private lateinit var salinityIcon:ImageView
+    private lateinit var salinityIconBackGround:View
     private lateinit var salinityDescriptionText:TextView
     private lateinit var replaceTimeText:TextView
     private lateinit var disposeTimeText:TextView
@@ -45,6 +46,7 @@ class SensorFragment : Fragment() {
         val inWaveProgressBar: WaveProgressBar = view.findViewById(R.id.s_in_tank)
         currentSalinityText = view.findViewById(R.id.s_salt_level)
         salinityIcon = view.findViewById(R.id.s_salt_icon)
+        salinityIconBackGround = view.findViewById(R.id.s_icon_background)
         salinityDescriptionText = view.findViewById(R.id.s_salt_level_description)
         replaceTimeText = view.findViewById(R.id.s_replace_time)
         disposeTimeText = view.findViewById(R.id.s_dispose_time)
@@ -65,7 +67,7 @@ class SensorFragment : Fragment() {
             } else {
                 // エラーハンドリング：期待するサイズでない場合の処理
                 withContext(Dispatchers.Main) {
-                    setInformationToUI("-", "--:--", "--:--")
+                    setInformationToUI("0", "--:--", "--:--")
                 }
             }
         }
@@ -99,22 +101,27 @@ class SensorFragment : Fragment() {
             "1" -> {
                 salinityIcon.setImageResource(R.drawable.level1_icon) // アイコンを設定
                 salinityDescriptionText.text = getString(R.string.s_salt_level1_description) // 説明文を設定
+                salinityIconBackGround.setBackgroundColor(R.drawable.level1_frame_style)
             }
             "2" -> {
                 salinityIcon.setImageResource(R.drawable.level2_icon) // アイコンを設定
                 salinityDescriptionText.text = getString(R.string.s_salt_level2_description) // 説明文を設定
+                salinityIconBackGround.setBackgroundColor(R.drawable.level2_frame_style)
             }
             "3" -> {
                 salinityIcon.setImageResource(R.drawable.level3_icon) // アイコンを設定
                 salinityDescriptionText.text = getString(R.string.s_salt_level3_description) // 説明文を設定
+                salinityIconBackGround.setBackgroundColor(R.drawable.level3_frame_style)
             }
             "4" -> {
                 salinityIcon.setImageResource(R.drawable.level4_icon) // アイコンを設定
                 salinityDescriptionText.text = getString(R.string.s_salt_level4_description) // 説明文を設定
+                salinityIconBackGround.setBackgroundColor(R.drawable.level4_frame_style)
             }
             "5" -> {
                 salinityIcon.setImageResource(R.drawable.level5_icon) // アイコンを設定
                 salinityDescriptionText.text = getString(R.string.s_salt_level5_description) // 説明文を設定
+                salinityIconBackGround.setBackgroundColor(R.drawable.level5_frame_style)
             }
             else -> {
                 salinityIcon.setImageResource(R.drawable.lader_icon)
