@@ -15,14 +15,6 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.shiosabin.BuildConfig.DATA_FETCH_NETWORK_ADDRESS
 import com.example.shiosabin.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONObject
-import java.net.HttpURLConnection
-import java.net.URL
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -64,9 +56,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
 
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", false)  // アプリ起動時は必ずfalseにリセット
-        editor.apply()
         // 初期状態としてログイン状態を設定
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
         Log.d("MainActivity", "isLoggedIn: $isLoggedIn")

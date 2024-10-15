@@ -24,7 +24,9 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 import android.app.AlertDialog
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlin.coroutines.coroutineContext
 
 class LoginDialogFragment : DialogFragment() {
 
@@ -195,4 +197,6 @@ class LoginDialogFragment : DialogFragment() {
         alert.setTitle("失敗")
         alert.show()
     }
+
+
 }
