@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import java.util.Calendar
 import java.util.Locale
@@ -13,6 +14,7 @@ import java.util.TimeZone
 class PredictionFragment : Fragment() {
 
     private lateinit var todaySaltLevelText: TextView
+    private lateinit var backgroundIcon:ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,26 +28,34 @@ class PredictionFragment : Fragment() {
 
         // TextViewのリソースIDを取得
         val hourTextArray = arrayOf(
-            view.findViewById<TextView>(R.id.p_hour_time_0),
-            view.findViewById<TextView>(R.id.p_hour_time_1),
-            view.findViewById<TextView>(R.id.p_hour_time_2),
-            view.findViewById<TextView>(R.id.p_hour_time_3),
-            view.findViewById<TextView>(R.id.p_hour_time_4),
+            view.findViewById(R.id.p_hour_time_0),
+            view.findViewById(R.id.p_hour_time_1),
+            view.findViewById(R.id.p_hour_time_2),
+            view.findViewById(R.id.p_hour_time_3),
+            view.findViewById(R.id.p_hour_time_4),
             view.findViewById<TextView>(R.id.p_hour_time_5)
         )
 
         val dayTextArray = arrayOf(
-            view.findViewById<TextView>(R.id.p_day_0),
-            view.findViewById<TextView>(R.id.p_day_1),
-            view.findViewById<TextView>(R.id.p_day_2),
-            view.findViewById<TextView>(R.id.p_day_3),
-            view.findViewById<TextView>(R.id.p_day_4),
+            view.findViewById(R.id.p_day_0),
+            view.findViewById(R.id.p_day_1),
+            view.findViewById(R.id.p_day_2),
+            view.findViewById(R.id.p_day_3),
+            view.findViewById(R.id.p_day_4),
             view.findViewById<TextView>(R.id.p_day_5)
         )
 
+        todaySaltLevelText = view.findViewById(R.id.today_average_salt_level)
+        backgroundIcon = view.findViewById(R.id.background_icon)
+        when (todaySaltLevelText.text.toString()) {
+            "1" -> backgroundIcon.setImageResource(R.drawable.level1_icon)
+            "2" -> backgroundIcon.setImageResource(R.drawable.level2_icon)
+            "3" -> backgroundIcon.setImageResource(R.drawable.level3_icon)
+            "4" -> backgroundIcon.setImageResource(R.drawable.level4_icon)
+            "5" -> backgroundIcon.setImageResource(R.drawable.level5_icon)
+        }
+
         // 最初のTextViewのテキストを空に設定
-        val ct = getString(R.string.p_current_time)
-        hourTextArray[0].text = ct
 
         for (i in 0..5) {
             val hour = (calendar.get(Calendar.HOUR_OF_DAY) + i) % 24

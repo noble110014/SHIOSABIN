@@ -11,10 +11,8 @@ import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import java.io.File
-import java.io.FileOutputStream
-import java.util.Properties
 
 class SensorIDDialogFragment : DialogFragment() {
 
@@ -45,7 +43,12 @@ class SensorIDDialogFragment : DialogFragment() {
                 val editor = sharedPreferences.edit()
                 editor.putString("SENSOR_ID", sensorID)
                 editor.apply()
+                Toast.makeText(requireContext(), "センサーIDが保存されました", Toast.LENGTH_SHORT).show()
+                val result = Bundle()
+                parentFragmentManager.setFragmentResult("RegisterSensorIDKey", result)
                 dismiss() // ダイアログを閉じる
+            } else {
+                Toast.makeText(requireContext(), "センサーIDを入力してください", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -57,7 +60,7 @@ class SensorIDDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.requestFeature(Window.FEATURE_NO_TITLE) // タイトルを非表示に
         return dialog
     }
 

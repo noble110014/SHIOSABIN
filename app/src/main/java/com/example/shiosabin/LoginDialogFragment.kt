@@ -31,6 +31,7 @@ import kotlin.coroutines.coroutineContext
 class LoginDialogFragment : DialogFragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences_S: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +44,7 @@ class LoginDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sharedPreferences = requireActivity().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-
+        sharedPreferences_S = requireActivity().getSharedPreferences("SensorPrefs",Context.MODE_PRIVATE)
         // Viewの初期化
         val usernameEditText: EditText = view.findViewById(R.id.sensorIDEditText)
         val passwordEditText: EditText = view.findViewById(R.id.passwordEditText)
@@ -62,7 +63,7 @@ class LoginDialogFragment : DialogFragment() {
                         if (success) {
                             saveLoginState(true)
                             showSuccessDialog("ログイン成功: $username")
-                            onLoginSuccessful()
+                            onLoginSuccessful(username)
                             dismiss()
                         } else {
                             showFailureDialog("ログイン失敗")
@@ -85,7 +86,7 @@ class LoginDialogFragment : DialogFragment() {
                     withContext(Dispatchers.Main) {
                         if (success) {
                             saveLoginState(true)
-                            onLoginSuccessful()
+                            onLoginSuccessful(username)
                             showSuccessDialog("登録成功: $username")
                             dismiss()
                         } else {
@@ -121,14 +122,18 @@ class LoginDialogFragment : DialogFragment() {
         window?.setBackgroundDrawableResource(android.R.color.white)
     }
 
-    private fun onLoginSuccessful() {
+    private fun onLoginSuccessful(username: String) {
         val result = Bundle()
         result.putBoolean("loginSuccess", true)
+        result.putString("username",username)
         parentFragmentManager.setFragmentResult("loginRequestKey", result)
 
-        SensorIDDialogFragment().show(parentFragmentManager, "SensorIDDialog")
+        val sensorID = sharedPreferences_S.getString("SENSOR_ID", null)
 
-        dismiss()
+        // SensorIDが存在しない場合のみSensorIDDialogFragmentに遷移
+        if (sensorID == null) {
+            SensorIDDialogFragment().show(parentFragmentManager, "SensorIDDialog")
+        }
     }
 
     // ログイン処理
