@@ -20,10 +20,12 @@ waveprogressbar = "v1.0.0"
 playServicesLocation = "21.3.0"
 preference = "1.2.1"
 preferenceKtx = "1.2.1"
+workRuntime = "2.9.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
+androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 json = { module = "org.json:json", version.ref = "json" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

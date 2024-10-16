@@ -9,12 +9,17 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.shiosabin.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -110,6 +115,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val alert = dialogBuilder.create()
                 alert.setTitle("成功")
                 alert.show()
+
+                openFragment(SensorFragment())
+                navigationView.setCheckedItem(R.id.bottom_sensor)
+                binding.bottomNavigation.selectedItemId = R.id.bottom_sensor
             }
 
             R.id.nav_sensor_register -> {

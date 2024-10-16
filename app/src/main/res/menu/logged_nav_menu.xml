@@ -17,8 +17,8 @@
             />
 
         <item
-            android:id = "@+id/nav_gps"
-            android:title="位置情報"/>
+            android:id = "@+id/nav_sharing"
+            android:title="共有"/>
 
         <item
             android:id="@+id/nav_logout"
