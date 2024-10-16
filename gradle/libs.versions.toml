@@ -18,6 +18,8 @@ playServicesMaps = "19.0.0"
 secretsGradlePlugin = "2.0.1"
 waveprogressbar = "v1.0.0"
 playServicesLocation = "21.3.0"
+preference = "1.2.1"
+preferenceKtx = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,6 +40,8 @@ play-services-maps = { module = "com.google.android.gms:play-services-maps", ver
 secrets-gradle-plugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }
 waveprogressbar = { module = "com.github.cjhandroid:WaveProgressBar", version.ref = "waveprogressbar" }
 gms-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
+androidx-preference-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preferenceKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

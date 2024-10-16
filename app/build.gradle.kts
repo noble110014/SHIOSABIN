@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.okhttp3.okhttp)
     implementation(libs.play.services.maps)
     implementation(libs.gms.play.services.location)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.preference.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

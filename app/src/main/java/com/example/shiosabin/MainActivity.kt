@@ -87,7 +87,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_notification -> openFragment(S_NotificationFragment())
             R.id.nav_sharing -> openFragment(S_SharingFragment())
-            R.id.nav_gps -> openFragment(S_GPSFragment())
             R.id.nav_login -> {
                 val loginDialog = LoginDialogFragment()
                 loginDialog.show(supportFragmentManager, "LoginDialogFragment")
