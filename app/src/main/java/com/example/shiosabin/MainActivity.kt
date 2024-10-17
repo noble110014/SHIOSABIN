@@ -5,32 +5,29 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.shiosabin.BuildConfig.DATA_FETCH_NETWORK_ADDRESS
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.shiosabin.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONObject
-import java.net.HttpURLConnection
-import java.net.URL
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: ActivityMainBinding
-    private val urlGetText = DATA_FETCH_NETWORK_ADDRESS // エミュレータの場合
     private lateinit var navigationView: NavigationView
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences_S: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +37,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "SHIOSABIN"
 
-        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.nav_open, R.string.nav_close)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.nav_open,
+            R.string.nav_close
+        )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -63,21 +66,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.bottomNavigation.selectedItemId = R.id.bottom_sensor
 
         sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
+        sharedPreferences_S = getSharedPreferences("SensorPrefs", Context.MODE_PRIVATE)
 
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", false)  // アプリ起動時は必ずfalseにリセット
-        editor.apply()
         // 初期状態としてログイン状態を設定
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-        Log.d("MainActivity", "isLoggedIn: $isLoggedIn")
-        setNavigationView(isLoggedIn)
+        val username = sharedPreferences.getString("username", "") ?: ""
+        Log.d("MainActivity", "isLoggedIn: $isLoggedIn, username: $username")
+        setNavigationView(isLoggedIn, username)
 
         // LoginDialogFragmentからの結果を受け取るリスナー
         supportFragmentManager.setFragmentResultListener("loginRequestKey", this) { _, bundle ->
             val success = bundle.getBoolean("loginSuccess", false)
-            if (success) {
-                onLoginSuccess() // ログイン成功時の処理
+            val Username = bundle.getString("username")
+            if (success && Username != null) {
+                onLoginSuccess(Username) // ログイン成功時の処理
             }
+        }
+
+        supportFragmentManager.setFragmentResultListener("RegisterSensorIDKey",this){ _, bundle ->
+            SetSensorID()
         }
     }
 
@@ -85,28 +92,57 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_notification -> openFragment(S_NotificationFragment())
             R.id.nav_sharing -> openFragment(S_SharingFragment())
-            R.id.nav_gps -> openFragment(S_GPSFragment())
             R.id.nav_login -> {
                 val loginDialog = LoginDialogFragment()
                 loginDialog.show(supportFragmentManager, "LoginDialogFragment")
             }
+
             R.id.nav_logout -> {
                 val editor = sharedPreferences.edit()
                 editor.putBoolean("isLoggedIn", false)
+                editor.putString("username", "") // ログアウト時にusernameをクリア
                 editor.apply()
 
+                val editor2 = sharedPreferences_S.edit()
+                editor2.putString("SENSOR_ID","")
+                editor2.apply()
+
                 // NavigationViewのヘッダーを更新
-                setNavigationView(false)
-                Toast.makeText(this, "ログアウトしました", Toast.LENGTH_SHORT).show()
+                setNavigationView(false, "")
+
+                val dialogBuilder = AlertDialog.Builder(this)
+                dialogBuilder.setMessage("ログアウトに成功しました")
+                    .setCancelable(false)
+                    .setPositiveButton("閉じる") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                val alert = dialogBuilder.create()
+                alert.setTitle("成功")
+                alert.show()
+
+                openFragment(SensorFragment())
+                navigationView.setCheckedItem(R.id.bottom_sensor)
+                binding.bottomNavigation.selectedItemId = R.id.bottom_sensor
             }
-            R.id.nav_sensor_register ->{
+
+            R.id.nav_sensor_register -> {
                 val sensorDialog = SensorIDDialogFragment()
-                sensorDialog.show(supportFragmentManager,"SensorIDDialogFragment")
+                sensorDialog.show(supportFragmentManager, "SensorIDDialogFragment")
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    fun onLoginSuccess(username: String) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", true)
+        editor.putString("username", username) // ログイン時にusernameを保存
+        editor.apply()
+
+        setNavigationView(true, username) // ヘッダーを更新
+    }
+
 
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -127,7 +163,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-    private fun setNavigationView(isLoggedIn: Boolean) {
+    private fun setNavigationView(isLoggedIn: Boolean, username: String) {
         // 既存のヘッダーを削除
 
         if (isLoggedIn) {
@@ -153,14 +189,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val headerView = layoutInflater.inflate(headerLayout, navigationView, false)
         navigationView.addHeaderView(headerView)
+
+        val header = navigationView.getHeaderView(0) // ヘッダーの0番目を取得
+        val userTextView = header.findViewById<TextView>(R.id.userID) // ヘッダー内のTextViewにアクセス
+        userTextView.text = "USER ID: " + username
+
+        SetSensorID()
     }
 
-    // ログインダイアログでのログイン成功時に呼び出されるメソッド
-    fun onLoginSuccess() {
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", true)
-        editor.apply()
-
-        setNavigationView(true) // ヘッダーを更新
+    private fun SetSensorID() {
+        val header = navigationView.getHeaderView(0) // ヘッダーの0番目を取得
+        val sensorID = sharedPreferences_S.getString("SENSOR_ID", "")
+        val sensorTextView = header.findViewById<TextView>(R.id.sensorID)
+        sensorTextView.text = "SENSOR ID: $sensorID" // センサーIDをヘッダーに表示
     }
+
+
 }
