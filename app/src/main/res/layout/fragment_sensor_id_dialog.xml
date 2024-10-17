@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    android:padding="16dp"
+   >
+
+    <EditText
+        android:id="@+id/sensorIDEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="センサーIDを入力"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登録" />
+
+    <TextView
+        android:id="@+id/laterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:paddingTop="16dp"
+        android:text="閉じる"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="16sp" />
+
+    <TextView
+        android:paddingTop="30dp"
+        android:id="@+id/sensorIDdescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="付属している塩害センサーに記述されているセンサーIDを入力してくださいセンサーIDを入力しない場合、本アプリの一部機能が制限されるため、入力することを強く推奨いたします。"
+        />
+</LinearLayout>

@@ -1,20 +1,38 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
     namespace = "com.example.shiosabin"
     compileSdk = 34
 
+    buildFeatures{
+        buildConfig = true
+    }
     defaultConfig {
         applicationId = "com.example.shiosabin"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val localProperties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { stream ->
+                localProperties.load(stream)
+            }
+        }
+
+        // 環境変数を BuildConfig に設定する
+        buildConfigField("String", "NETWORK_ADDRESS", "\"${localProperties["NETWORK_ADDRESS"]}\"")
+        buildConfigField("String", "MAPS_API_KEY", "\"${localProperties["MAPS_API_KEY"]}\"")
+
     }
 
     buildTypes {
@@ -47,7 +65,14 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.waveprogressbar)
     implementation(libs.material.v1130alpha05)
+    implementation(libs.okhttp3.okhttp)
+    implementation(libs.play.services.maps)
+    implementation(libs.gms.play.services.location)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.androidx.work.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+

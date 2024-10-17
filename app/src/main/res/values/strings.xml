@@ -4,4 +4,33 @@
     <string name="nav_close">Close Navigation Drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="p_max">最高：</string>
+    <string name="p_min">最低：</string>
+    <string name="p_current_time">現在時刻</string>
+
+    <string name="s_salt_level">塩害レベル</string>
+    <string name="s_salt_level1_description">塩害の心配はいりません</string>
+    <string name="s_salt_level2_description">塩害への備えをしておきましょう</string>
+    <string name="s_salt_level3_description">金属部分や露出している部分を布などで覆いましょう</string>
+    <string name="s_salt_level4_description">付着した塩分を水などで洗浄しましょう</string>
+    <string name="s_salt_level5_description">至急屋外にあるものを屋内に非難させ洗浄しましょう</string>
+    <string name="s_in_water_tank">入水タンク</string>
+    <string name="s_out_water_tank">排水タンク</string>
+    <string name="s_replace_time_description">補充まであと</string>
+    <string name="s_dispose_time_description">廃棄まであと</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

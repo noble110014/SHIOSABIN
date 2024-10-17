@@ -37,15 +37,16 @@
 
                <com.google.android.material.bottomnavigation.BottomNavigationView
                    android:id="@+id/bottom_navigation"
-                   android:layout_width="wrap_content"
-                   android:layout_height="match_parent"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
                    android:background="@android:color/transparent"
-                   app:itemIconSize="35dp"
+                   app:itemIconSize="30dp"
                    app:itemIconTint="@color/bottom_navigation_color"
-                   app:itemPaddingTop="15dp"
+                   app:itemPaddingTop="20dp"
                    app:itemTextColor="@color/bottom_navigation_color"
                    app:labelVisibilityMode="labeled"
                    app:menu="@menu/bottom_menu" />
+
 
            </com.google.android.material.bottomappbar.BottomAppBar>
        </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -59,10 +60,8 @@
         android:id="@+id/navigation_drawer"
         android:layout_gravity="start"
         android:background="@color/blue"
-
-
         app:itemTextColor="@color/white"
-        app:headerLayout="@layout/nav_header"
-        app:menu = "@menu/nav_menu"/>
+        app:headerLayout="@layout/login_nav_header"
+        app:menu = "@menu/non_logged_nav_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
