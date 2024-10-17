@@ -77,9 +77,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // LoginDialogFragmentからの結果を受け取るリスナー
         supportFragmentManager.setFragmentResultListener("loginRequestKey", this) { _, bundle ->
             val success = bundle.getBoolean("loginSuccess", false)
-            val username = bundle.getString("username")
-            if (success && username != null) {
-                onLoginSuccess(username) // ログイン成功時の処理
+            val Username = bundle.getString("username")
+            if (success && Username != null) {
+                onLoginSuccess(Username) // ログイン成功時の処理
             }
         }
 
@@ -102,6 +102,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 editor.putBoolean("isLoggedIn", false)
                 editor.putString("username", "") // ログアウト時にusernameをクリア
                 editor.apply()
+
+                val editor2 = sharedPreferences_S.edit()
+                editor2.putString("SENSOR_ID","")
+                editor2.apply()
 
                 // NavigationViewのヘッダーを更新
                 setNavigationView(false, "")

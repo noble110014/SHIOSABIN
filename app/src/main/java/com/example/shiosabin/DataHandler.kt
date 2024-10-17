@@ -8,12 +8,12 @@ import org.json.JSONArray
 import java.net.HttpURLConnection
 import java.net.URL
 
-object SensorDataHandler {
+object DataHandler {
     suspend fun fetchFromApi(urlString: String, context: Context): List<String> {
         // SharedPreferencesを取得
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("SensorPrefs", Context.MODE_PRIVATE)
         // センサーIDを読み取る
-        val sensorID = sharedPreferences.getString("SENSOR_ID", null)
+        val sensorID = sharedPreferences.getString("SENSOR_ID", "")
 
         return try {
             withContext(Dispatchers.IO) {
@@ -29,6 +29,9 @@ object SensorDataHandler {
                 }
 
                 val str = con.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+                if (str.isEmpty() || !str.startsWith("[")) {
+                    throw Exception("Invalid response format: $str")
+                }
                 val jsonArray = JSONArray(str)
 
                 // JSONArray の内容を List<String> に変換

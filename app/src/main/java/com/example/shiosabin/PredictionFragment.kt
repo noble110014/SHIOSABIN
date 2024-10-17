@@ -1,12 +1,19 @@
 package com.example.shiosabin
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
+import com.example.shiosabin.BuildConfig.PREDICT_DATA_FETCH_NETWORK_ADDRESS
+import com.example.shiosabin.BuildConfig.SENSOR_DATA_FETCH_NETWORK_ADDRESS
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
@@ -22,6 +29,55 @@ class PredictionFragment : Fragment() {
     ): View? {
         // フラグメントのレイアウトをインフレート
         val view = inflater.inflate(R.layout.fragment_prediction, container, false)
+
+        val hourSaltLevelArray = arrayOf(
+            view.findViewById<TextView>(R.id.p_hour_salt_level_0),
+            view.findViewById(R.id.p_hour_salt_level_1),
+            view.findViewById(R.id.p_hour_salt_level_2),
+            view.findViewById(R.id.p_hour_salt_level_3),
+            view.findViewById(R.id.p_hour_salt_level_4),
+            view.findViewById(R.id.p_hour_salt_level_5)
+        )
+
+        val daySaltlevelArray = arrayOf(
+            arrayOf(
+                view.findViewById<TextView>(R.id.p_day_max_salt_level_0),
+                view.findViewById(R.id.p_day_min_salt_level_0)
+            ),
+            arrayOf(
+                view.findViewById(R.id.p_day_max_salt_level_1),
+                view.findViewById(R.id.p_day_min_salt_level_1)
+            ),
+            arrayOf(
+                view.findViewById(R.id.p_day_max_salt_level_2),
+                view.findViewById(R.id.p_day_min_salt_level_2)
+            ),
+            arrayOf(
+                view.findViewById(R.id.p_day_max_salt_level_3),
+                view.findViewById(R.id.p_day_min_salt_level_3)
+            ),
+            arrayOf(
+                view.findViewById(R.id.p_day_max_salt_level_4),
+                view.findViewById(R.id.p_day_min_salt_level_4)
+            ),
+            arrayOf(
+                view.findViewById(R.id.p_day_max_salt_level_5),
+                view.findViewById(R.id.p_day_min_salt_level_5)
+            )
+        )
+
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            val result = DataHandler.fetchFromApi(PREDICT_DATA_FETCH_NETWORK_ADDRESS, requireContext())
+            if (result.size >= 7) {
+                withContext(Dispatchers.Main) {
+
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+
+                }
+            }
+        }
 
         // カレンダーのインスタンスを取得
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"), Locale.JAPAN)
@@ -70,6 +126,8 @@ class PredictionFragment : Fragment() {
             dayTextArray[i].text = dayText
         }
 
+
+
         return view
     }
 
@@ -84,10 +142,5 @@ class PredictionFragment : Fragment() {
             Calendar.SATURDAY -> "(土)"
             else -> ""
         }
-    }
-
-    public fun SetTodaySaltLevel(level:String)
-    {
-        todaySaltLevelText.text = level
     }
 }
