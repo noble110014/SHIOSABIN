@@ -13,22 +13,41 @@
         android:fitsSystemWindows="true">
 
         <ImageView
-            android:id="@+id/background_icon"
+            android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0.5"
-            android:src="@drawable/level4_icon"
+            android:layout_marginBottom="360dp"
+            android:src="@drawable/bg_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/today_average_salt_level"
+            android:layout_width="92dp"
+            android:layout_height="122dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="4"
+            android:textColor="@color/darkblue"
+            android:textSize="100sp"
+            android:typeface="serif"
+            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_location"
+            app:layout_constraintVertical_bias="0.37" />
+
         <HorizontalScrollView
             android:id="@+id/p_hour_scrollview"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="300dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/prediction_frame"
             android:overScrollMode="never"
@@ -41,23 +60,26 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:orientation="horizontal"
                 android:padding="15dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
+
 
                     <TextView
                         android:id="@+id/p_hour_time_0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="8:00"
+                        android:text="17:00"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -71,12 +93,23 @@
                         android:textColor="@color/white"
                         android:textSize="34sp" />
 
+                    <TextView
+                        android:id="@+id/p_hour_timescale_0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="昨日"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -86,7 +119,7 @@
                         android:text="8:00"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -100,22 +133,32 @@
                         android:textColor="@color/white"
                         android:textSize="34sp" />
 
+                    <TextView
+                        android:id="@+id/p_hour_timescale_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="現在"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/p_hour_time_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="8:00"
+                        android:text="5:00"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
 
@@ -130,107 +173,29 @@
                         android:textColor="@color/white"
                         android:textSize="34sp" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
-                    android:orientation="vertical">
-
                     <TextView
-                        android:id="@+id/p_hour_time_3"
+                        android:id="@+id/p_hour_timescale_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="8:00"
+                        android:text="明日"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/p_hour_salt_level_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="4"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="34sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/p_hour_time_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="8:00"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/p_hour_salt_level_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="5"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="34sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/p_hour_time_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="8:00"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/p_hour_salt_level_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="5"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="34sp" />
 
                 </LinearLayout>
 
             </LinearLayout>
         </HorizontalScrollView>
 
+
         <ScrollView
             android:id="@+id/p_day_scrollview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="100dp"
             android:layout_marginBottom="120dp"
             android:background="@drawable/prediction_frame"
             android:overScrollMode="never"
@@ -264,7 +229,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/p_day_min_salt_level_0"
+                        android:id="@+id/p_day_salt_level_0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -273,15 +238,6 @@
                         android:textColor="@color/white"
                         android:textSize="26sp" />
 
-                    <TextView
-                        android:id="@+id/p_day_max_salt_level_0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="2"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="26sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -302,7 +258,7 @@
 
 
                     <TextView
-                        android:id="@+id/p_day_min_salt_level_1"
+                        android:id="@+id/p_day_salt_level_1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -311,15 +267,6 @@
                         android:textColor="@color/white"
                         android:textSize="26sp" />
 
-                    <TextView
-                        android:id="@+id/p_day_max_salt_level_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="2"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="26sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -339,7 +286,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/p_day_min_salt_level_2"
+                        android:id="@+id/p_day_salt_level_2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -348,15 +295,6 @@
                         android:textColor="@color/white"
                         android:textSize="26sp" />
 
-                    <TextView
-                        android:id="@+id/p_day_max_salt_level_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="2"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="26sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -376,7 +314,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/p_day_min_salt_level_3"
+                        android:id="@+id/p_day_salt_level_3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -385,15 +323,6 @@
                         android:textColor="@color/white"
                         android:textSize="26sp" />
 
-                    <TextView
-                        android:id="@+id/p_day_max_salt_level_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="2"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="26sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -414,7 +343,7 @@
 
 
                     <TextView
-                        android:id="@+id/p_day_min_salt_level_4"
+                        android:id="@+id/p_day_salt_level_4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -423,15 +352,6 @@
                         android:textColor="@color/white"
                         android:textSize="26sp" />
 
-                    <TextView
-                        android:id="@+id/p_day_max_salt_level_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="2"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="26sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -451,7 +371,7 @@
 
 
                     <TextView
-                        android:id="@+id/p_day_min_salt_level_5"
+                        android:id="@+id/p_day_salt_level_5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -460,15 +380,6 @@
                         android:textColor="@color/white"
                         android:textSize="26sp" />
 
-                    <TextView
-                        android:id="@+id/p_day_max_salt_level_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="2"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="26sp" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -477,9 +388,9 @@
             android:id="@+id/current_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="120dp"
             android:fontFamily="sans-serif-black"
-            android:text="恩納村"
+            android:text="那覇"
             android:textColor="@color/darkblue"
 
             android:textSize="30sp"
@@ -487,53 +398,6 @@
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/today_average_salt_level"
-            android:layout_width="92dp"
-            android:layout_height="122dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="4"
-            android:textColor="@color/darkblue"
-            android:textSize="100sp"
-            android:typeface="serif"
-            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/current_location"
-            app:layout_constraintVertical_bias="0.37" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
-            android:fontFamily="sans-serif-black"
-            android:text="最高：5"
-            android:textColor="@color/darkblue"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:fontFamily="sans-serif-black"
-            android:text="最低：3"
-            android:textColor="@color/darkblue"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/p_hour_scrollview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/today_average_salt_level" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

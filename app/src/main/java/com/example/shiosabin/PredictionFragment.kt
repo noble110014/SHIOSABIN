@@ -1,7 +1,6 @@
 package com.example.shiosabin
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.example.shiosabin.BuildConfig.PREDICT_DATA_FETCH_NETWORK_ADDRESS
-import com.example.shiosabin.BuildConfig.SENSOR_DATA_FETCH_NETWORK_ADDRESS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,7 +19,6 @@ import java.util.TimeZone
 class PredictionFragment : Fragment() {
 
     private lateinit var todaySaltLevelText: TextView
-    private lateinit var backgroundIcon:ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,48 +30,39 @@ class PredictionFragment : Fragment() {
         val hourSaltLevelArray = arrayOf(
             view.findViewById<TextView>(R.id.p_hour_salt_level_0),
             view.findViewById(R.id.p_hour_salt_level_1),
-            view.findViewById(R.id.p_hour_salt_level_2),
-            view.findViewById(R.id.p_hour_salt_level_3),
-            view.findViewById(R.id.p_hour_salt_level_4),
-            view.findViewById(R.id.p_hour_salt_level_5)
+            view.findViewById(R.id.p_hour_salt_level_2)
         )
 
         val daySaltlevelArray = arrayOf(
-            arrayOf(
-                view.findViewById<TextView>(R.id.p_day_max_salt_level_0),
-                view.findViewById(R.id.p_day_min_salt_level_0)
-            ),
-            arrayOf(
-                view.findViewById(R.id.p_day_max_salt_level_1),
-                view.findViewById(R.id.p_day_min_salt_level_1)
-            ),
-            arrayOf(
-                view.findViewById(R.id.p_day_max_salt_level_2),
-                view.findViewById(R.id.p_day_min_salt_level_2)
-            ),
-            arrayOf(
-                view.findViewById(R.id.p_day_max_salt_level_3),
-                view.findViewById(R.id.p_day_min_salt_level_3)
-            ),
-            arrayOf(
-                view.findViewById(R.id.p_day_max_salt_level_4),
-                view.findViewById(R.id.p_day_min_salt_level_4)
-            ),
-            arrayOf(
-                view.findViewById(R.id.p_day_max_salt_level_5),
-                view.findViewById(R.id.p_day_min_salt_level_5)
-            )
+            view.findViewById<TextView>(R.id.p_day_salt_level_0),
+            view.findViewById(R.id.p_day_salt_level_1),
+            view.findViewById(R.id.p_day_salt_level_2),
+            view.findViewById(R.id.p_day_salt_level_3),
+            view.findViewById(R.id.p_day_salt_level_4),
+            view.findViewById(R.id.p_day_salt_level_5)
         )
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            val result = DataHandler.fetchFromApi(PREDICT_DATA_FETCH_NETWORK_ADDRESS, requireContext())
-            if (result.size >= 7) {
-                withContext(Dispatchers.Main) {
-
+            val dayResult = DataHandler.fetchFromPredictionApi(requireContext(),"day")
+            val hourResult = DataHandler.fetchFromPredictionApi(requireContext(),"hour")
+            withContext(Dispatchers.Main) {
+                // 取得結果を UI に反映させる
+                dayResult.let { dayData ->
+                    // dayResult のデータを daySaltlevelArray に反映
+                    daySaltlevelArray.forEachIndexed { index, textView ->
+                        if (index < dayData.size) {
+                            textView.text = dayData[index].toString()  // 例：データをテキストとして設定
+                        }
+                    }
                 }
-            } else {
-                withContext(Dispatchers.Main) {
 
+                hourResult.let { hourData ->
+                    // hourResult のデータを hourSaltLevelArray に反映
+                    hourSaltLevelArray.forEachIndexed { index, textView ->
+                        if (index < hourData.size) {
+                            textView.text = hourData[index].toString()  // 例：データをテキストとして設定
+                        }
+                    }
                 }
             }
         }
@@ -84,12 +72,10 @@ class PredictionFragment : Fragment() {
 
         // TextViewのリソースIDを取得
         val hourTextArray = arrayOf(
-            view.findViewById(R.id.p_hour_time_0),
+            view.findViewById<TextView>(R.id.p_hour_time_0),
             view.findViewById(R.id.p_hour_time_1),
             view.findViewById(R.id.p_hour_time_2),
-            view.findViewById(R.id.p_hour_time_3),
-            view.findViewById(R.id.p_hour_time_4),
-            view.findViewById<TextView>(R.id.p_hour_time_5)
+
         )
 
         val dayTextArray = arrayOf(
@@ -101,22 +87,34 @@ class PredictionFragment : Fragment() {
             view.findViewById<TextView>(R.id.p_day_5)
         )
 
+        val timeScaleArray = arrayOf(
+            view.findViewById(R.id.p_hour_timescale_0),
+            view.findViewById(R.id.p_hour_timescale_1),
+            view.findViewById<TextView>(R.id.p_hour_timescale_2)
+        )
+
         todaySaltLevelText = view.findViewById(R.id.today_average_salt_level)
-        backgroundIcon = view.findViewById(R.id.background_icon)
-        when (todaySaltLevelText.text.toString()) {
-            "1" -> backgroundIcon.setImageResource(R.drawable.level1_icon)
-            "2" -> backgroundIcon.setImageResource(R.drawable.level2_icon)
-            "3" -> backgroundIcon.setImageResource(R.drawable.level3_icon)
-            "4" -> backgroundIcon.setImageResource(R.drawable.level4_icon)
-            "5" -> backgroundIcon.setImageResource(R.drawable.level5_icon)
-        }
 
         // 最初のTextViewのテキストを空に設定
 
-        for (i in 0..5) {
-            val hour = (calendar.get(Calendar.HOUR_OF_DAY) + i) % 24
-            hourTextArray[i].text = String.format("%02d時", hour)
+        val currentHour = (calendar.get(Calendar.HOUR_OF_DAY)) % 24
+        hourTextArray[1].text = String.format("%02d:00", currentHour)
+
+        if((currentHour >= 18)  || (currentHour <= 4))
+        {
+            hourTextArray[0].text = "17:00"
+            hourTextArray[2].text = "5:00"
+            timeScaleArray[0].text = "昨日"
+            timeScaleArray[2].text = "明日"
+        }else if(currentHour in 6..14)
+        {
+            hourTextArray[0].text = "5:00"
+            hourTextArray[2].text = "17:00"
+            timeScaleArray[0].text = "今日"
+            timeScaleArray[2].text = "今日"
         }
+
+
 
         for (i in 0..5) {
             calendar.add(Calendar.DAY_OF_MONTH, 1)
