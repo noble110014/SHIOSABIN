@@ -10,6 +10,13 @@
     <color name="s_level2_color">#FAF500</color>
     <color name="s_level3_color">#FF9900</color>
     <color name="s_level5_color">#B40068</color>
+    <color name="map_s_level1_color">#80B9EBEB</color>
+    <color name="map_s_level4_color">#80FF2800</color>
+    <color name="map_s_level2_color">#80FAF500</color>
+    <color name="map_s_level3_color">#80FF9900</color>
+    <color name="map_s_level5_color">#80B40068</color>
+
+
 
 </resources>
 
