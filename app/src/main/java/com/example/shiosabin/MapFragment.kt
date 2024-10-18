@@ -15,8 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.shiosabin.BuildConfig.MAP_SALINITY_DATA_FETCH_NETWORK_ADDRESS
-import com.example.shiosabin.BuildConfig.MAP_SENSOR_LOCATION_DATA_FETCH_NETWORK_ADDRESS
+import com.example.shiosabin.BuildConfig.MAP_DATA_FETCH_NETWORK_ADDRESS
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -38,8 +37,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var mMap: GoogleMap
     private val FINE_PERMISSION_CODE = 1000
-    private lateinit var positions: List<String>
-    private lateinit var salinities: List<String>
+
+    private lateinit var group1Data: List<Pair<String,String>>
+    private lateinit var group2Data: List<Pair<String,String>>
+    private lateinit var group3Data: List<Pair<String,String>>
+    private lateinit var group4Data: List<Pair<String,String>>
+    private lateinit var group5Data: List<Pair<String,String>>
+    private lateinit var seekBar: Slider
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,45 +53,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             try {
-                positions = DataHandler.fetchFromApi(MAP_SENSOR_LOCATION_DATA_FETCH_NETWORK_ADDRESS, requireContext())
-                val locationData = listOf(
-                    listOf(1, "POINT(10.00 10.00)"),
-                    listOf(2, "POINT(20.00 20.00)"),
-                    listOf(3, "POINT(30.00 30.00)"),
-                    listOf(4, "POINT(40.00 40.00)"),
-                    listOf(5, "POINT(50.00 50.00)")
-                )
-
-                // 新しい配列に座標を格納する
-                val coordinatesList = locationData.map { pointData ->
-                    // "POINT(10.00 10.00)" の形式から "10.00, 10.00" を取得
-                    val pointString = pointData[1] as String
-                    val coordinates = pointString.removePrefix("POINT(").removeSuffix(")").split(" ")
-                    coordinates.joinToString(", ")
-                }
-                positions = coordinatesList
-
-                salinities = DataHandler.fetchFromApi(MAP_SALINITY_DATA_FETCH_NETWORK_ADDRESS, requireContext())
-                val salinityData = listOf(
-                    listOf(
-                        listOf(1, "POINT(50.00 50.00)", "Group 1"),
-                        listOf(2, "POINT(40.00 40.00)", "Group 1"),
-                        listOf(5, "POINT(30.00 30.00)", "Group 1"),
-                        listOf(4, "POINT(20.00 20.00)", "Group 1"),
-                        listOf(3, "POINT(10.00 10.00)", "Group 1")
-                    ),
-                    emptyList(),
-                    emptyList(),
-                    emptyList(),
-                    emptyList()
-                )
-
-                // 先頭の数字を取り出して結合する
-                val firstNumbers: List<String> = salinityData[0].map { (it[0] as Int).toString() }
-
-                salinities = firstNumbers
-
+                val result = DataHandler.fetchFromMapApi(requireContext())
                 withContext(Dispatchers.Main) {
+
+                    group1Data = result.getOrNull(0)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
+                    group2Data = result.getOrNull(1)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
+                    group3Data = result.getOrNull(2)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
+                    group4Data = result.getOrNull(3)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
+                    group5Data = result.getOrNull(4)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
+
                     onMapReady(mMap) // データ取得後に地図描画を行う
                 }
             } catch (e: Exception) {
@@ -108,13 +82,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             enableMyLocation() // 現在地を取得してズーム
         }
 
-        val seekBar: Slider = view.findViewById(R.id.seekBar)
-        seekBar.addOnChangeListener { seekBar, value, fromUser ->
-            onMapReady(mMap)
+        seekBar = view.findViewById(R.id.seekBar)
+
+        seekBar.addOnChangeListener { slider, value, fromUser ->
+            updateMapMarkers(value)
+            Log.d("CHECKMARKERVALUE",value.toString())
         }
-
-        // 非同期でデータを取得し、取得後に地図上に描画
-
 
         return view
     }
@@ -124,27 +97,62 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         mMap = googleMap
 
-        if (!::positions.isInitialized) {
-            Log.e("MapFragment", "Positions not initialized!")
-            return
-        }
-
-
         // ProgressBarを非表示にする
         view?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.GONE
 
-
         // 他のマーカーを表示
-        viewLifecycleOwner.lifecycleScope.launch {
-            /*val mitinoeki = LatLng(26.552155585587087, 127.96844407573552)
-            val kosen = LatLng(26.5, 128.0)
+        updateMapMarkers(0f)
+    }
 
-            addCircleAroundMarker(googleMap, kosen, "沖縄高専", 1500.0, R.color.s_level1_color)
-            addCircleAroundMarker(googleMap, mitinoeki, "道の駅", 2000.0, R.color.s_level3_color)
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(kosen,15f))*/
-            addCirclesAndMarkers(googleMap, positions, "センサー", 1000000.0, salinities)
+    private fun updateMapMarkers(value: Float) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            when (value) {
+                0f -> {
+                    if(::group1Data.isInitialized)
+                    {
+                        val coordinatesList1 = group1Data.map{ it.first }
+                        val colorKeysList1 = group1Data.map { it.second }
+                        addCirclesAndMarkers(mMap, coordinatesList1, "センサー", 1000.0, colorKeysList1)
+                    }
+
+                }
+                0.25f -> {
+                    if(::group2Data.isInitialized)
+                    {
+                        val coordinatesList2 = group2Data.map { it.first }
+                        val colorKeysList2 = group2Data.map { it.second }
+                        addCirclesAndMarkers(mMap, coordinatesList2, "センサー", 1000.0, colorKeysList2)
+                    }
+                }
+                0.5f -> {
+                    if(::group3Data.isInitialized)
+                    {
+                        val coordinatesList3 = group3Data.map { it.first }
+                        val colorKeysList3 = group3Data.map { it.second }
+                        addCirclesAndMarkers(mMap, coordinatesList3, "センサー", 1000.0, colorKeysList3)
+                    }
+                }
+                0.75f -> {
+                    if(::group4Data.isInitialized)
+                    {
+                        val coordinatesList4 = group4Data.map { it.first }
+                        val colorKeysList4 = group4Data.map { it.second }
+                        addCirclesAndMarkers(mMap, coordinatesList4, "センサー", 1000.0, colorKeysList4)
+                    }
+                }
+                1f -> {
+                    if(::group5Data.isInitialized)
+                    {
+                        val coordinatesList5 = group5Data.map { it.first }
+                        val colorKeysList5 = group5Data.map { it.second }
+                        addCirclesAndMarkers(mMap, coordinatesList5, "センサー", 1000.0, colorKeysList5)
+                    }
+                }
+                // ... (他のグループに対する処理)
         }
     }
+
+}
 
     // 現在地のマイロケーションレイヤーを有効にする
     private fun enableMyLocation() {
@@ -181,7 +189,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
     // 円とマーカーの追加
     private fun addCirclesAndMarkers(
         googleMap: GoogleMap,
@@ -193,16 +200,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         if (isAdded) {
             // キーと色をマッピング (例: "1" -> 赤, "2" -> 青など)
             val colorMap = mapOf(
-                "1" to R.color.s_level1_color,    // "1" -> 赤色
-                "2" to R.color.s_level2_color,   // "2" -> 青色
-                "3" to R.color.s_level3_color,  // "3" -> 緑色
-                "4" to R.color.s_level4_color, // "4" -> 黄色
-                "5" to R.color.s_level5_color
+                "1" to R.color.map_s_level1_color,    // "1" -> 赤色
+                "2" to R.color.map_s_level2_color,   // "2" -> 青色
+                "3" to R.color.map_s_level3_color,  // "3" -> 緑色
+                "4" to R.color.map_s_level4_color, // "4" -> 黄色
+                "5" to R.color.map_s_level5_color
             )
 
             coordinates.forEachIndexed { index, coordinate ->
                 // "lat,lng" 形式の座標を LatLng に変換
-                val latLngParts = coordinate.split(",")
+                val latLngParts = coordinate.split(" ")
                 if (latLngParts.size == 2) {
                     try {
                         val lat = latLngParts[0].toDouble()

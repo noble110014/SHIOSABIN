@@ -52,7 +52,7 @@ class SensorFragment : Fragment() {
         disposeTimeText = view.findViewById(R.id.s_dispose_time)
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            val result = DataHandler.fetchFromApi(SENSOR_DATA_FETCH_NETWORK_ADDRESS, requireContext())
+            val result = DataHandler.fetchFromSensorApi(requireContext())
             Log.d("SensorFragment", "API Response: $result")
 
             Log.d("SensorFragment", "API Response Size: ${result.size}")
@@ -61,10 +61,10 @@ class SensorFragment : Fragment() {
                 inProgress = result[3].toInt()
                 val sLevel = result[5]
                 Log.d("SensorFragment", "Out Progress: $outProgress, In Progress: $inProgress, Salinity Level: $sLevel")
-                val rTank = convertMinutesToHoursAndMinutes(120 * (1 - outProgress / 100).toFloat())
-                val dTank = convertMinutesToHoursAndMinutes(120 * (1 - inProgress / 100).toFloat())
+                val rTank = convertMinutesToHoursAndMinutes(120 * (1 - inProgress / 100f).toFloat())
+                val dTank = convertMinutesToHoursAndMinutes(120 * (1 - outProgress / 100f).toFloat())
                 withContext(Dispatchers.Main) {
-                    setInformationToUI(sLevel, rTank, dTank)
+                    setInformationToUI(sLevel.toString(), rTank, dTank)
                     startProgressUpdate(outWaveProgressBar, inWaveProgressBar)
                 }
             } else {
@@ -76,6 +76,8 @@ class SensorFragment : Fragment() {
         }
         return view
     }
+
+
 
     private fun startProgressUpdate(outWaveProgressBar: WaveProgressBar, inWaveProgressBar: WaveProgressBar) {
         // viewLifecycleOwner.lifecycleScopeに置き換える
@@ -159,7 +161,7 @@ class SensorFragment : Fragment() {
     private fun convertMinutesToHoursAndMinutes(minutes: Float): String {
         val hours = (minutes / 60).toInt() // 時間を計算しIntに変換
         val remainingMinutes = (minutes % 60).toInt()// 分を計算しIntに変換
-        return String.format("%d:%02d", hours, remainingMinutes) // "時間:分"形式で返す
+        return String.format("%02d:%02d", hours, remainingMinutes) // "時間:分"形式で返す
     }
 
 
