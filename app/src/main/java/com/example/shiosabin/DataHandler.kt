@@ -115,7 +115,7 @@ object DataHandler {
         }
     }
 
-    suspend fun fetchFromPredictionApi(context: Context,additionalURL: String): List<String> {
+    suspend fun fetchFromPredictionApi(context: Context, additionalURL: String): List<List<String>> {
         // SharedPreferencesを取得
         val urlString = PREDICT_DATA_FETCH_NETWORK_ADDRESS
 
@@ -129,26 +129,33 @@ object DataHandler {
                 con.connect()
 
                 if (con.responseCode != HttpURLConnection.HTTP_OK) {
-                    return@withContext listOf("Error: Response Code ${con.responseCode}")
+                    return@withContext listOf(listOf("Error: Response Code ${con.responseCode}"))
                 }
 
                 val str = con.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
                 if (str.isEmpty() || !str.startsWith("[")) {
                     throw Exception("Invalid response format: $str")
                 }
+
                 val jsonArray = JSONArray(str)
 
-                // JSONArray の内容を List<String> に変換
-                val resultList = mutableListOf<String>()
+                // JSONArray の内容を List<List<String>> に変換
+                val resultList = mutableListOf<List<String>>()
                 for (i in 0 until jsonArray.length()) {
-                    resultList.add(jsonArray.get(i).toString())
+                    val innerArray = jsonArray.getJSONArray(i)
+                    val innerList = mutableListOf<String>()
+                    for (j in 0 until innerArray.length()) {
+                        innerList.add(innerArray.get(j).toString())
+                    }
+                    resultList.add(innerList)
                 }
                 resultList
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            listOf("Error: ${e.message}")
+            listOf(listOf("Error: ${e.message}"))
         }
     }
+
 
 }

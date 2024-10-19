@@ -1,6 +1,7 @@
 package com.example.shiosabin
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,24 +46,16 @@ class PredictionFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val dayResult = DataHandler.fetchFromPredictionApi(requireContext(),"day")
             val hourResult = DataHandler.fetchFromPredictionApi(requireContext(),"hour")
+            Log.d("PredictionFragment",dayResult.toString())
             withContext(Dispatchers.Main) {
                 // 取得結果を UI に反映させる
-                dayResult.let { dayData ->
-                    // dayResult のデータを daySaltlevelArray に反映
-                    daySaltlevelArray.forEachIndexed { index, textView ->
-                        if (index < dayData.size) {
-                            textView.text = dayData[index].toString()  // 例：データをテキストとして設定
-                        }
-                    }
-                }
+                hourSaltLevelArray[0].text = hourResult[1][3]
+                hourSaltLevelArray[2].text = hourResult[0][3]
 
-                hourResult.let { hourData ->
-                    // hourResult のデータを hourSaltLevelArray に反映
-                    hourSaltLevelArray.forEachIndexed { index, textView ->
-                        if (index < hourData.size) {
-                            textView.text = hourData[index].toString()  // 例：データをテキストとして設定
-                        }
-                    }
+                for (i in 0 until daySaltlevelArray.size - 1)
+                {
+                    val index = daySaltlevelArray.size -2 - i
+                    daySaltlevelArray[i].text = dayResult[index][3]
                 }
             }
         }

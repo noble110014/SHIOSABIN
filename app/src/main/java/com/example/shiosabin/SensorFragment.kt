@@ -57,8 +57,8 @@ class SensorFragment : Fragment() {
 
             Log.d("SensorFragment", "API Response Size: ${result.size}")
             if (result.size >= 6) {
-                outProgress = result[4].toInt()
-                inProgress = result[3].toInt()
+                outProgress = result[3].toInt()
+                inProgress = result[4].toInt()
                 val sLevel = result[5]
                 Log.d("SensorFragment", "Out Progress: $outProgress, In Progress: $inProgress, Salinity Level: $sLevel")
                 val rTank = convertMinutesToHoursAndMinutes(120 * (1 - inProgress / 100f).toFloat())
