@@ -52,58 +52,71 @@ class SensorFragment : Fragment() {
         disposeTimeText = view.findViewById(R.id.s_dispose_time)
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            val result = DataHandler.fetchFromSensorApi(requireContext())
-            Log.d("SensorFragment", "API Response: $result")
+            try {
+                context?.let { safeContext ->
+                    val result = DataHandler.fetchFromSensorApi(safeContext)
+                    Log.d("SensorFragment", "API Response: $result")
 
-            Log.d("SensorFragment", "API Response Size: ${result.size}")
-            if (result.size >= 6) {
-                outProgress = result[3].toInt()
-                inProgress = result[4].toInt()
-                val sLevel = result[5]
-                Log.d("SensorFragment", "Out Progress: $outProgress, In Progress: $inProgress, Salinity Level: $sLevel")
-                val rTank = convertMinutesToHoursAndMinutes(120 * (1 - inProgress / 100f).toFloat())
-                val dTank = convertMinutesToHoursAndMinutes(120 * (1 - outProgress / 100f).toFloat())
-                withContext(Dispatchers.Main) {
-                    setInformationToUI(sLevel.toString(), rTank, dTank)
-                    startProgressUpdate(outWaveProgressBar, inWaveProgressBar)
+                    if (result.size >= 6) {
+                        outProgress = result[3].toInt()
+                        inProgress = result[4].toInt()
+                        val sLevel = result[5]
+
+                        val rTank = convertMinutesToHoursAndMinutes(120 * (1 - inProgress / 100f).toFloat())
+                        val dTank = convertMinutesToHoursAndMinutes(120 * (1 - outProgress / 100f).toFloat())
+                        withContext(Dispatchers.Main) {
+                            setInformationToUI(sLevel.toString(), rTank, dTank)
+                            startProgressUpdate(outWaveProgressBar, inWaveProgressBar)
+                        }
+                    } else {
+                        Log.e("SensorFragment", "Invalid response size: ${result.size}")
+                        withContext(Dispatchers.Main) {
+                            setInformationToUI("0", "--:--", "--:--")
+                        }
+                    }
                 }
-            } else {
-                Log.e("SensorFragment", "Invalid response size: ${result.size}")
+            } catch (e: Exception) {
+                Log.e("SensorFragment", "Error fetching data: ${e.message}")
                 withContext(Dispatchers.Main) {
                     setInformationToUI("0", "--:--", "--:--")
                 }
             }
         }
+
         return view
     }
 
 
 
     private fun startProgressUpdate(outWaveProgressBar: WaveProgressBar, inWaveProgressBar: WaveProgressBar) {
-        // viewLifecycleOwner.lifecycleScopeに置き換える
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
-            while (started) {
-                delay(50)
+            try {
+                while (started) {
+                    delay(50)
 
-                if (currentOutProgress < outProgress) {
-                    currentOutProgress++
-                }
+                    if (currentOutProgress < outProgress) {
+                        currentOutProgress++
+                    }
 
-                if (currentInProgress < inProgress) {
-                    currentInProgress++
-                }
+                    if (currentInProgress < inProgress) {
+                        currentInProgress++
+                    }
 
-                withContext(Dispatchers.Main) {
-                    outWaveProgressBar.setProgress(currentOutProgress)
-                    inWaveProgressBar.setProgress(currentInProgress)
+                    withContext(Dispatchers.Main) {
+                        outWaveProgressBar.setProgress(currentOutProgress)
+                        inWaveProgressBar.setProgress(currentInProgress)
 
-                    if (currentOutProgress >= outProgress && currentInProgress >= inProgress) {
-                        stopTimer()
+                        if (currentOutProgress >= outProgress && currentInProgress >= inProgress) {
+                            stopTimer()
+                        }
                     }
                 }
+            } catch (e: Exception) {
+                Log.e("SensorFragment", "Error during progress update: ${e.message}")
             }
         }
     }
+
 
 
     // タイマーを止める処理
@@ -120,51 +133,52 @@ class SensorFragment : Fragment() {
     }
 
     private fun setInformationToUI(salinity: String, rTime: String, dTime: String) {
-        currentSalinityText.text = salinity // 塩分濃度を設定
-        replaceTimeText.text = rTime // 交換時間を設定
-        disposeTimeText.text = dTime // 廃棄時間を設定
+        try {
+            currentSalinityText.text = salinity
+            replaceTimeText.text = rTime
+            disposeTimeText.text = dTime
 
-        // 塩分濃度に応じてアイコンと説明文を設定
-        when (salinity) {
-            "1" -> {
-                salinityIcon.setImageResource(R.drawable.level1_icon) // アイコンを設定
-                salinityDescriptionText.text = getString(R.string.s_salt_level1_description) // 説明文を設定
-                salinityIconBackGround.setBackgroundResource(R.drawable.level1_frame_style)
+            when (salinity) {
+                "1" -> {
+                    salinityIcon.setImageResource(R.drawable.level1_icon)
+                    salinityDescriptionText.text = getString(R.string.s_salt_level1_description)
+                    salinityIconBackGround.setBackgroundResource(R.drawable.level1_frame_style)
+                }
+                "2" -> {
+                    salinityIcon.setImageResource(R.drawable.level2_icon)
+                    salinityDescriptionText.text = getString(R.string.s_salt_level2_description)
+                    salinityIconBackGround.setBackgroundResource(R.drawable.level2_frame_style)
+                }
+                // その他のケースも同様に
+                "3" -> {
+                    salinityIcon.setImageResource(R.drawable.level3_icon)
+                    salinityDescriptionText.text = getString(R.string.s_salt_level3_description)
+                    salinityIconBackGround.setBackgroundResource(R.drawable.level3_frame_style)
+                }
+
+                "4" -> {
+                    salinityIcon.setImageResource(R.drawable.level4_icon)
+                    salinityDescriptionText.text = getString(R.string.s_salt_level4_description)
+                    salinityIconBackGround.setBackgroundResource(R.drawable.level4_frame_style)
+                }
+
+                "5" -> {
+                    salinityIcon.setImageResource(R.drawable.level5_icon)
+                    salinityDescriptionText.text = getString(R.string.s_salt_level5_description)
+                    salinityIconBackGround.setBackgroundResource(R.drawable.level5_frame_style)
+                }
+                else ->
+                    salinityIcon.setImageResource(R.drawable.level3_icon)
             }
-            "2" -> {
-                salinityIcon.setImageResource(R.drawable.level2_icon) // アイコンを設定
-                salinityDescriptionText.text = getString(R.string.s_salt_level2_description) // 説明文を設定
-                salinityIconBackGround.setBackgroundResource(R.drawable.level2_frame_style)
-            }
-            "3" -> {
-                salinityIcon.setImageResource(R.drawable.level3_icon) // アイコンを設定
-                salinityDescriptionText.text = getString(R.string.s_salt_level3_description) // 説明文を設定
-                salinityIconBackGround.setBackgroundResource(R.drawable.level3_frame_style)
-            }
-            "4" -> {
-                salinityIcon.setImageResource(R.drawable.level4_icon) // アイコンを設定
-                salinityDescriptionText.text = getString(R.string.s_salt_level4_description) // 説明文を設定
-                salinityIconBackGround.setBackgroundResource(R.drawable.level4_frame_style)
-            }
-            "5" -> {
-                salinityIcon.setImageResource(R.drawable.level5_icon) // アイコンを設定
-                salinityDescriptionText.text = getString(R.string.s_salt_level5_description) // 説明文を設定
-                salinityIconBackGround.setBackgroundResource(R.drawable.level5_frame_style)
-            }
-            else -> {
-                salinityIcon.setImageResource(R.drawable.lader_icon)
-                salinityDescriptionText.text = "-"
-            }
+        } catch (e: Exception) {
+            Log.e("SensorFragment", "Error setting UI: ${e.message}")
         }
     }
+
 
     private fun convertMinutesToHoursAndMinutes(minutes: Float): String {
         val hours = (minutes / 60).toInt() // 時間を計算しIntに変換
         val remainingMinutes = (minutes % 60).toInt()// 分を計算しIntに変換
         return String.format("%02d:%02d", hours, remainingMinutes) // "時間:分"形式で返す
     }
-
-
-
-
 }

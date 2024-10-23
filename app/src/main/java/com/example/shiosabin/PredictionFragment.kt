@@ -54,7 +54,7 @@ class PredictionFragment : Fragment() {
 
                 for (i in 0 until daySaltlevelArray.size - 1)
                 {
-                    val index = daySaltlevelArray.size -2 - i
+                    val index = daySaltlevelArray.size - i - 2
                     daySaltlevelArray[i].text = dayResult[index][3]
                 }
             }

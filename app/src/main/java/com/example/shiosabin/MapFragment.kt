@@ -38,12 +38,17 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private val FINE_PERMISSION_CODE = 1000
 
-    private lateinit var group1Data: List<Pair<String,String>>
-    private lateinit var group2Data: List<Pair<String,String>>
-    private lateinit var group3Data: List<Pair<String,String>>
-    private lateinit var group4Data: List<Pair<String,String>>
-    private lateinit var group5Data: List<Pair<String,String>>
+    private lateinit var group1Data: List<String>
+    private lateinit var group2Data: List<String>
+    private lateinit var group3Data: List<String>
+    private lateinit var group4Data: List<String>
+    private lateinit var group5Data: List<String>
     private lateinit var seekBar: Slider
+
+    private var sampleRangeColorKeys = listOf(
+        "2", // 色キー (例: 赤色)
+        "4", // 色キー (例: 青色)
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,24 +57,50 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val view = inflater.inflate(R.layout.fragment_map, container, false)
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            try {
+            /*try {
                 val result = DataHandler.fetchFromMapApi(requireContext())
                 withContext(Dispatchers.Main) {
+                    /*group1Data = result[0]
+                    group2Data = result[1]
+                    group3Data = result[2]
+                    group4Data = result[3]
+                    group5Data = result[4]*/
 
-                    group1Data = result.getOrNull(0)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
-                    group2Data = result.getOrNull(1)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
-                    group3Data = result.getOrNull(2)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
-                    group4Data = result.getOrNull(3)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
-                    group5Data = result.getOrNull(4)?.map { Pair(it.first.toString(), it.second) } ?: emptyList()
+                    Log.d("DataHandler","$result")
 
-                    onMapReady(mMap) // データ取得後に地図描画を行う
+                    val coordinates = mutableListOf<String>()
+                    val rangeColorKeys = mutableListOf<String>()
+
+                    group2Data.forEach { item ->
+                        val id = item[0].toString()  // IDを取得（色のキーとして使用）
+                        val pointString = item[1] as String
+
+                        // "POINT(lat, lng)" から lat,lng を抽出
+                        val coordinate = pointString
+                            .removePrefix("POINT(")
+                            .removeSuffix(")")
+                            .replace(" ", ",")
+
+                        // リストに追加
+                        coordinates.add(coordinate)
+                        rangeColorKeys.add(id)
+                    }
+
+// デバッグログ出力
+                    Log.d("MapFragment", "$coordinates")
+                    Log.d("MapFragment", "$rangeColorKeys")
+
                 }
             } catch (e: Exception) {
                 Log.e("DataFetchError", "Error fetching data from API: ${e.message}")
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "データの取得に失敗しました", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "データの取得に失敗しました",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            }
+            }*/
         }
 
         // FusedLocationProviderClientの初期化
@@ -84,9 +115,27 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         seekBar = view.findViewById(R.id.seekBar)
 
+        seekBar.value = 1f
+
         seekBar.addOnChangeListener { slider, value, fromUser ->
-            updateMapMarkers(value)
-            Log.d("CHECKMARKERVALUE",value.toString())
+
+            sampleRangeColorKeys = when (value) {
+                in 0f..0.25f -> listOf("4", "1") // 例: 赤色
+                in 0.25f..0.5f -> listOf("5", "2") // 例: 青色
+                in 0.5f..0.75f -> listOf("2", "3") // 例: 緑色
+                in 0.75f..1f -> listOf("3", "4") // 例: 黄色
+                else -> listOf("1", "1") // デフォルト色
+            }
+
+            // 地図上の既存の円やマーカーをクリア
+            mMap.clear()
+
+            // 新しい色で円とマーカーを再描画
+            val sampleCoordinates = listOf(
+                "25.5,128", // 座標1
+                "34.6803074,135.8165186" // 座標2
+            )
+            addCirclesAndMarkers(mMap, sampleCoordinates, "センサー", 3000.0, sampleRangeColorKeys)
         }
 
         return view
@@ -100,11 +149,50 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // ProgressBarを非表示にする
         view?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.GONE
 
+        val sampleCoordinates = listOf(
+            "25.5,128", // 座標1
+            "34.6803074,135.8165186", // 座標2
+        )
+
+        addCirclesAndMarkers(googleMap,sampleCoordinates,"センサー",3000.0,sampleRangeColorKeys)
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(34.6803074,135.8165186), 12f))
         // 他のマーカーを表示
-        updateMapMarkers(0f)
+        //updateMapMarkers(0f)
     }
 
-    private fun updateMapMarkers(value: Float) {
+    fun extractIdAndLatLng(data: List<List<Any>>): List<Pair<Int, LatLng>> {
+        if (data.isEmpty()) {
+            Log.w("extractIdAndLatLng", "データが空です")
+            return emptyList() // リストが空の場合は空のリストを返す
+        }
+
+        return data.mapNotNull { entry ->
+            if (entry.isEmpty() || entry.size < 2) {
+                Log.w("extractIdAndLatLng", "不正なエントリが含まれています: $entry")
+                return@mapNotNull null // 不正なデータは無視
+            }
+
+            try {
+                val id = entry[0] as? Int // 最初の数字（ID）
+                val point = entry[1].toString() // "POINT(lat, lng)" 形式
+                val coordinates = point.removePrefix("POINT(").removeSuffix(")").split(", ")
+                val lat = coordinates[0].toDouble() // 緯度を取得
+                val lng = coordinates[1].toDouble() // 経度を取得
+
+                if (id != null) {
+                    id to LatLng(lat, lng) // IDとLatLngのペアを返す
+                } else {
+                    Log.w("extractIdAndLatLng", "IDがnullです: $entry")
+                    null
+                }
+            } catch (e: Exception) {
+                Log.e("extractIdAndLatLng", "エラーが発生しました: ${e.message}")
+                null // エラーが発生した場合は無視
+            }
+        }
+    }
+
+    /*private fun updateMapMarkers(value: Float) {
         viewLifecycleOwner.lifecycleScope.launch {
             when (value) {
                 0f -> {
@@ -152,7 +240,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-}
+}*/
 
     // 現在地のマイロケーションレイヤーを有効にする
     private fun enableMyLocation() {
@@ -209,7 +297,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             coordinates.forEachIndexed { index, coordinate ->
                 // "lat,lng" 形式の座標を LatLng に変換
-                val latLngParts = coordinate.split(" ")
+                val latLngParts = coordinate.split(",")
                 if (latLngParts.size == 2) {
                     try {
                         val lat = latLngParts[0].toDouble()
